@@ -1469,6 +1469,12 @@ section.tight { padding-block: clamp(3rem, 5vw, 4rem); }
   width: auto;
   margin-bottom: 1rem;
   display: block;
+  filter: brightness(0) invert(1);
+}
+
+/* Header logo : mix-blend-mode supprime le fond blanc du JPG sur fond clair */
+.brand-logo img {
+  mix-blend-mode: multiply;
 }
 
 @keyframes fadeUp {
