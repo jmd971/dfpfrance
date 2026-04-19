@@ -239,7 +239,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  min-height: 80px;
+  max-height: 55vh;
+  overflow-y: auto;
+  flex-shrink: 0;
 }
 @media (min-width: 600px) { .input-area { padding: 1.25rem 3rem 2rem; } }
 
@@ -511,7 +513,7 @@ body {
 
 const GHL_CALENDAR = 'https://link.siboard-consulting.fr/widget/bookings/rdv-dfpfrance';
 const GHL_FORM    = 'https://webapps.dfpfrance.fr/widget/form/Wt1TpN3pplFfKpHx56w4';
-const LOGO = 'assets/img/logo-dfp-color.png';
+const LOGO = 'assets/img/logo-dfp.jpg';
 
 // ── Données collectées ──
 const data = {
