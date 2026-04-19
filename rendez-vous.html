@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prendre rendez-vous — Diagnostic vitrage gratuit | DFP France</title>
+<meta name="description" content="Réservez votre diagnostic vitrage gratuit en 2 minutes. DFP France vous propose un créneau sous 48h en Île-de-France.">
+<link rel="canonical" href="https://dfpfrance.fr/rendez-vous">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,30..100;1,9..144,300..500,30..100&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+/* ── Variables locales ── */
+:root {
+  --step-active: var(--amber);
+  --step-done:   var(--teal);
+  --card-radius: 4px;
+}
+
+/* ── Layout wizard ── */
+.wizard-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--paper);
+}
+
+/* ── Progress bar ── */
+.progress-wrap {
+  background: var(--paper-alt);
+  border-bottom: 1px solid var(--line);
+  padding: 1.25rem var(--gutter);
+}
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.75rem;
+}
+.progress-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
+}
+.progress-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--amber-deep);
+  font-weight: 500;
+}
+.progress-track {
+  height: 3px;
+  background: var(--mist);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--amber));
+  border-radius: 99px;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 0%;
+}
+
+/* ── Step container ── */
+.step-viewport {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+.steps-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.step {
+  min-width: 100%;
+  padding: clamp(2rem, 5vw, 4rem) var(--gutter) 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 680px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ── Step header ── */
+.step-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal-deep);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.step-eyebrow::before {
+  content: '';
+  width: 1.25rem;
+  height: 1px;
+  background: var(--teal);
+}
+.step-question {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  max-width: 18ch;
+}
+.step-question em {
+  color: var(--amber);
+  font-style: italic;
+}
+.step-hint {
+  font-size: 0.9rem;
+  color: var(--slate-soft);
+  margin-top: -1rem;
+}
+
+/* ── Choice cards ── */
+.choices {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+.choices.two-col { grid-template-columns: repeat(2, 1fr); }
+.choices.three-col { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 560px) {
+  .choices,
+  .choices.two-col,
+  .choices.three-col { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 360px) {
+  .choices,
+  .choices.two-col,
+  .choices.three-col { grid-template-columns: 1fr; }
+}
+
+.choice {
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  padding: 1.25rem 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: var(--card-radius);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+.choice::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--amber);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.choice:hover { border-color: var(--amber); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(194,106,58,.12); }
+.choice.selected { border-color: var(--amber); background: rgba(194,106,58,0.06); }
+.choice.selected::after { opacity: 0; }
+
+.choice-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+.choice-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.choice-sub {
+  font-size: 0.78rem;
+  color: var(--slate-soft);
+  line-height: 1.4;
+}
+.choice.selected .choice-label { color: var(--amber-deep); }
+
+/* Check mark */
+.choice .check {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.choice .check::after {
+  content: '';
+  width: 0.4rem;
+  height: 0.25rem;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+.choice.selected .check { opacity: 1; transform: scale(1); }
+
+/* ── Text inputs ── */
+.input-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.input-group label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
+}
+.wizard-input {
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  padding: 0.9rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  border-radius: var(--card-radius);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+.wizard-input:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(194,106,58,0.1);
+}
+.wizard-input::placeholder { color: var(--slate-soft); opacity: 0.7; }
+.contact-grid { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
+@media (max-width: 500px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* ── Nav boutons ── */
+.step-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem var(--gutter);
+  border-top: 1px solid var(--line);
+  background: var(--paper-alt);
+  gap: 1rem;
+}
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0.5rem 0;
+  transition: color 0.2s;
+}
+.btn-back:hover { color: var(--ink); }
+.btn-back svg { transition: transform 0.2s; }
+.btn-back:hover svg { transform: translateX(-3px); }
+
+.btn-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--card-radius);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+}
+.btn-next:hover { background: var(--amber-deep); transform: translateY(-1px); }
+.btn-next:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+.btn-next .arrow { transition: transform 0.25s; }
+.btn-next:not(:disabled):hover .arrow { transform: translateX(4px); }
+
+/* ── Récapitulatif ── */
+.recap-card {
+  background: var(--paper-alt);
+  border-left: 2px solid var(--amber);
+  padding: 1.75rem 1.5rem;
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+}
+.recap-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+  margin-bottom: 1.25rem;
+}
+.recap-list { display: flex; flex-direction: column; gap: 0.65rem; }
+.recap-item {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--mist);
+}
+.recap-item:last-child { border-bottom: none; padding-bottom: 0; }
+.recap-key {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
+  align-self: center;
+}
+.recap-val { font-weight: 500; color: var(--ink); }
+
+/* ── Calendrier GHL ── */
+.calendar-wrap {
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  position: relative;
+  min-height: 650px;
+  background: var(--paper-alt);
+}
+.calendar-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--slate-soft);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: opacity 0.4s;
+  background: var(--paper-alt);
+  pointer-events: none;
+}
+.spin {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--line);
+  border-top-color: var(--amber);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#ghl-calendar {
+  width: 100%;
+  height: 700px;
+  border: none;
+  display: block;
+}
+
+/* ── Final screen ── */
+.final-step {
+  padding: clamp(2rem, 5vw, 4rem) var(--gutter);
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+}
+.final-step .step-question {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Animations ── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.step > * {
+  animation: fadeSlideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.step > *:nth-child(1) { animation-delay: 0.05s; }
+.step > *:nth-child(2) { animation-delay: 0.12s; }
+.step > *:nth-child(3) { animation-delay: 0.19s; }
+.step > *:nth-child(4) { animation-delay: 0.25s; }
+
+/* ── Trust badges ── */
+.trust-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--slate-soft);
+  font-family: var(--font-mono);
+}
+.trust-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+</style>
+</head>
+
+<body>
+<div class="announce">
+  <strong>Été 2026 —</strong>&nbsp;Délais de pose qui s'allongent. Réservez vite votre créneau.
+</div>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a class="brand-logo" href="index.html">
+        <img src="assets/img/logo-dfp.jpg" alt="DFP France" width="120" height="36">
+      </a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-dropdown"><button>Services</button><div class="nav-dropdown-menu"><span class="menu-label">Films techniques</span><a href="services/film-solaire.html">Film solaire</a><a href="services/film-securite.html">Film de sécurité</a><a href="services/film-anti-graffiti.html">Film anti-graffiti</a><a href="services/film-intelligent.html">Film intelligent</a></div></li>
+        <li class="nav-dropdown"><button>Secteurs</button><div class="nav-dropdown-menu"><span class="menu-label">Par secteur</span><a href="secteurs/bureaux.html">Bureaux</a><a href="index.html#secteurs">Commerces</a><a href="index.html#secteurs">Établissements publics</a><a href="index.html#secteurs">Habitat</a></div></li>
+        <li><a href="realisations.html">Réalisations</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:0186708288" class="nav-phone">01 86 70 82 88</a>
+        <a href="rendez-vous.html" class="btn btn-amber btn-no-arrow">Prendre RDV</a>
+        <button class="nav-toggle"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="wizard-shell">
+
+  <!-- Progress bar -->
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-meta">
+      <span class="progress-label" id="step-label">Votre projet</span>
+      <span class="progress-step-num" id="step-counter">1 / 6</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Steps viewport -->
+  <div class="step-viewport">
+    <div class="steps-track" id="steps-track">
+
+      <!-- ══ STEP 1 — Type de film ══ -->
+      <div class="step" id="step-1">
+        <div>
+          <span class="step-eyebrow">Étape 1 · votre besoin</span>
+          <h2 class="step-question mt-3">Quel type de film <em>vous intéresse ?</em></h2>
+          <p class="step-hint">Pas sûr ? Choisissez "Je ne sais pas encore" — on vous aidera lors du diagnostic.</p>
+        </div>
+        <div class="choices three-col" id="choices-film">
+          <div class="choice" data-val="Film solaire anti-chaleur" onclick="selectChoice(this,'film')">
+            <div class="check"></div>
+            <span class="choice-icon">☀️</span>
+            <span class="choice-label">Film solaire</span>
+            <span class="choice-sub">Réduire la chaleur &amp; les UV</span>
+          </div>
+          <div class="choice" data-val="Film de sécurité anti-effraction" onclick="selectChoice(this,'film')">
+            <div class="check"></div>
+            <span class="choice-icon">🛡️</span>
+            <span class="choice-label">Film sécurité</span>
+            <span class="choice-sub">Anti-effraction &amp; PPMS</span>
+          </div>
+          <div class="choice" data-val="Film décoratif ou dépoli" onclick="selectChoice(this,'film')">
+            <div class="check"></div>
+            <span class="choice-icon">🎨</span>
+            <span class="choice-label">Décoratif / dépoli</span>
+            <span class="choice-sub">Intimité &amp; habillage</span>
+          </div>
+          <div class="choice" data-val="Film anti-graffiti" onclick="selectChoice(this,'film')">
+            <div class="check"></div>
+            <span class="choice-icon">🧹</span>
+            <span class="choice-label">Anti-graffiti</span>
+            <span class="choice-sub">Protection sacrificielle</span>
+          </div>
+          <div class="choice" data-val="Film intelligent (opacité variable)" onclick="selectChoice(this,'film')">
+            <div class="check"></div>
+            <span class="choice-icon">⚡</span>
+            <span class="choice-label">Film intelligent</span>
+            <span class="choice-sub">Opacité sur commande</span>
+          </div>
+          <div class="choice" data-val="Je ne sais pas encore" onclick="selectChoice(this,'film')">
+            <div class="check"></div>
+            <span class="choice-icon">💬</span>
+            <span class="choice-label">Je ne sais pas</span>
+            <span class="choice-sub">On vous guide</span>
+          </div>
+        </div>
+        <div class="trust-row">
+          <span class="trust-item"><span class="trust-dot"></span>Diagnostic gratuit</span>
+          <span class="trust-item"><span class="trust-dot"></span>Sans engagement</span>
+          <span class="trust-item"><span class="trust-dot"></span>Réponse sous 48 h</span>
+        </div>
+      </div>
+
+      <!-- ══ STEP 2 — Type de local ══ -->
+      <div class="step" id="step-2">
+        <div>
+          <span class="step-eyebrow">Étape 2 · le lieu</span>
+          <h2 class="step-question mt-3">Quel type de <em>local</em> à traiter ?</h2>
+        </div>
+        <div class="choices two-col" id="choices-local">
+          <div class="choice" data-val="Bureaux / tertiaire" onclick="selectChoice(this,'local')">
+            <div class="check"></div>
+            <span class="choice-icon">🏢</span>
+            <span class="choice-label">Bureaux / tertiaire</span>
+            <span class="choice-sub">Open space, salle de réunion, siège</span>
+          </div>
+          <div class="choice" data-val="Commerce / vitrine" onclick="selectChoice(this,'local')">
+            <div class="check"></div>
+            <span class="choice-icon">🏪</span>
+            <span class="choice-label">Commerce / vitrine</span>
+            <span class="choice-sub">Boutique, restaurant, enseigne</span>
+          </div>
+          <div class="choice" data-val="Établissement public / scolaire" onclick="selectChoice(this,'local')">
+            <div class="check"></div>
+            <span class="choice-icon">🏫</span>
+            <span class="choice-label">Établissement public</span>
+            <span class="choice-sub">École, mairie, médiathèque</span>
+          </div>
+          <div class="choice" data-val="Habitat / appartement" onclick="selectChoice(this,'local')">
+            <div class="check"></div>
+            <span class="choice-icon">🏠</span>
+            <span class="choice-label">Habitat</span>
+            <span class="choice-sub">Appartement, maison, véranda</span>
+          </div>
+          <div class="choice" data-val="Industrie / logistique" onclick="selectChoice(this,'local')">
+            <div class="check"></div>
+            <span class="choice-icon">🏭</span>
+            <span class="choice-label">Industrie / logistique</span>
+            <span class="choice-sub">Entrepôt, atelier, hangar</span>
+          </div>
+          <div class="choice" data-val="Autre" onclick="selectChoice(this,'local')">
+            <div class="check"></div>
+            <span class="choice-icon">📋</span>
+            <span class="choice-label">Autre</span>
+            <span class="choice-sub">Je préciserai lors du diagnostic</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP 3 — Surface ══ -->
+      <div class="step" id="step-3">
+        <div>
+          <span class="step-eyebrow">Étape 3 · volume</span>
+          <h2 class="step-question mt-3">Quelle <em>surface</em> de vitrages à traiter ?</h2>
+          <p class="step-hint">Ordre de grandeur suffisant — nous mesurons précisément lors de la visite.</p>
+        </div>
+        <div class="choices two-col" id="choices-surface">
+          <div class="choice" data-val="Moins de 20 m²" onclick="selectChoice(this,'surface')">
+            <div class="check"></div>
+            <span class="choice-label">Moins de 20 m²</span>
+            <span class="choice-sub">1 à 3 fenêtres ou portes vitrées</span>
+          </div>
+          <div class="choice" data-val="20 à 80 m²" onclick="selectChoice(this,'surface')">
+            <div class="check"></div>
+            <span class="choice-label">20 à 80 m²</span>
+            <span class="choice-sub">Petit plateau ou vitrine</span>
+          </div>
+          <div class="choice" data-val="80 à 300 m²" onclick="selectChoice(this,'surface')">
+            <div class="check"></div>
+            <span class="choice-label">80 à 300 m²</span>
+            <span class="choice-sub">Plateau tertiaire ou commerce moyen</span>
+          </div>
+          <div class="choice" data-val="Plus de 300 m²" onclick="selectChoice(this,'surface')">
+            <div class="check"></div>
+            <span class="choice-label">Plus de 300 m²</span>
+            <span class="choice-sub">Grande surface, verrière, multi-sites</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP 4 — Ville ══ -->
+      <div class="step" id="step-4">
+        <div>
+          <span class="step-eyebrow">Étape 4 · localisation</span>
+          <h2 class="step-question mt-3">Où se situe <em>votre bien</em> ?</h2>
+          <p class="step-hint">Nous intervenons dans tout le 77, le 78 et la grande couronne parisienne.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="input-group" style="grid-column: 1 / -1;">
+            <label for="inp-ville">Ville *</label>
+            <input class="wizard-input" type="text" id="inp-ville" placeholder="ex. Versailles, Champs-sur-Marne, Paris 8e…" autocomplete="address-level2" inputmode="text">
+          </div>
+          <div class="input-group">
+            <label for="inp-dept">Département</label>
+            <input class="wizard-input" type="text" id="inp-dept" placeholder="ex. 77, 78, 75…" inputmode="numeric" maxlength="3">
+          </div>
+          <div class="input-group">
+            <label for="inp-acces">Accès particulier ?</label>
+            <input class="wizard-input" type="text" id="inp-acces" placeholder="ex. badge, nacelle, horaires restreints">
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP 5 — Urgence ══ -->
+      <div class="step" id="step-5">
+        <div>
+          <span class="step-eyebrow">Étape 5 · calendrier</span>
+          <h2 class="step-question mt-3">Quelle est <em>votre urgence</em> ?</h2>
+          <p class="step-hint">Cela nous aide à prioriser les interventions selon la saison.</p>
+        </div>
+        <div class="choices" id="choices-urgence">
+          <div class="choice" data-val="Urgent — dès cette semaine" onclick="selectChoice(this,'urgence')">
+            <div class="check"></div>
+            <span class="choice-icon">🔴</span>
+            <span class="choice-label">Urgent</span>
+            <span class="choice-sub">Cette semaine si possible</span>
+          </div>
+          <div class="choice" data-val="Dans le mois" onclick="selectChoice(this,'urgence')">
+            <div class="check"></div>
+            <span class="choice-icon">🟡</span>
+            <span class="choice-label">Sous 1 mois</span>
+            <span class="choice-sub">Avant l'été de préférence</span>
+          </div>
+          <div class="choice" data-val="Pas d'urgence particulière" onclick="selectChoice(this,'urgence')">
+            <div class="check"></div>
+            <span class="choice-icon">🟢</span>
+            <span class="choice-label">Pas d'urgence</span>
+            <span class="choice-sub">Je planifie à l'avance</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP 6 — Contact ══ -->
+      <div class="step" id="step-6">
+        <div>
+          <span class="step-eyebrow">Étape 6 · vos coordonnées</span>
+          <h2 class="step-question mt-3">Qui contacter pour <em>confirmer</em> le rendez-vous ?</h2>
+          <p class="step-hint">Ces informations nous permettront de vous confirmer le créneau et de préparer la visite.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="input-group">
+            <label for="inp-prenom">Prénom *</label>
+            <input class="wizard-input" type="text" id="inp-prenom" placeholder="Votre prénom" autocomplete="given-name">
+          </div>
+          <div class="input-group">
+            <label for="inp-nom">Nom *</label>
+            <input class="wizard-input" type="text" id="inp-nom" placeholder="Votre nom" autocomplete="family-name">
+          </div>
+          <div class="input-group">
+            <label for="inp-tel">Téléphone *</label>
+            <input class="wizard-input" type="tel" id="inp-tel" placeholder="06 12 34 56 78" autocomplete="tel" inputmode="tel">
+          </div>
+          <div class="input-group">
+            <label for="inp-email">E-mail *</label>
+            <input class="wizard-input" type="email" id="inp-email" placeholder="vous@exemple.fr" autocomplete="email" inputmode="email">
+          </div>
+          <div class="input-group" style="grid-column: 1 / -1;">
+            <label for="inp-societe">Société (facultatif)</label>
+            <input class="wizard-input" type="text" id="inp-societe" placeholder="Raison sociale" autocomplete="organization">
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP FINAL — Récap + Calendrier ══ -->
+      <div class="step final-step" id="step-final">
+        <div>
+          <span class="step-eyebrow">Parfait — choisissez votre créneau</span>
+          <h2 class="step-question mt-3">Votre projet est <em>prêt.</em> Réservez votre diagnostic.</h2>
+          <p class="step-hint">Notre technicien sera informé de votre projet avant de se déplacer.</p>
+        </div>
+
+        <!-- Récapitulatif -->
+        <div class="recap-card" id="recap-block">
+          <div class="recap-title">Récapitulatif de votre demande</div>
+          <div class="recap-list" id="recap-list"><!-- rempli par JS --></div>
+        </div>
+
+        <!-- Calendrier GHL -->
+        <div>
+          <p style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate-soft);margin-bottom:1rem;">
+            Choisissez un créneau de diagnostic gratuit
+          </p>
+          <div class="calendar-wrap">
+            <div class="calendar-loader" id="cal-loader">
+              <div class="spin"></div>
+              Chargement du calendrier…
+            </div>
+            <iframe id="ghl-calendar"
+              title="Calendrier DFP France — diagnostic vitrage gratuit"
+              scrolling="yes"
+              allow="payment">
+            </iframe>
+          </div>
+          <p style="margin-top:0.75rem;font-size:0.8rem;color:var(--slate-soft);">
+            Après confirmation, vous recevrez un e-mail et un SMS de rappel automatiques.
+          </p>
+        </div>
+
+        <!-- Contact direct si préféré -->
+        <div style="padding:1.25rem;background:var(--paper-alt);border:1px solid var(--line);border-radius:var(--card-radius);">
+          <p style="font-size:0.85rem;color:var(--slate);margin-bottom:0.75rem;">Vous préférez prendre rendez-vous par téléphone ?</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="tel:0186708288" class="btn btn-primary" style="font-size:0.9rem;">01 86 70 82 88</a>
+            <a href="https://wa.me/33769628912" class="btn btn-outline" style="font-size:0.9rem;">WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /steps-track -->
+  </div><!-- /step-viewport -->
+
+  <!-- Navigation buttons -->
+  <div class="step-nav" id="step-nav">
+    <button class="btn-back" id="btn-back" onclick="goBack()" style="visibility:hidden;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Retour
+    </button>
+    <button class="btn-next" id="btn-next" onclick="goNext()" disabled>
+      Continuer
+      <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+</main>
+
+<script>
+// ════════════════════════════════════════
+//  DFP France — Wizard de pré-qualification
+// ════════════════════════════════════════
+
+const TOTAL_STEPS = 6;
+const CALENDAR_BASE = 'https://link.siboard-consulting.fr/widget/bookings/rdv-dfpfrance';
+
+const STEP_LABELS = [
+  'Votre besoin',
+  'Le local',
+  'La surface',
+  'La localisation',
+  'Votre calendrier',
+  'Vos coordonnées',
+];
+
+// State
+const data = {
+  film: '', local: '', surface: '', urgence: '',
+  ville: '', dept: '', acces: '',
+  prenom: '', nom: '', tel: '', email: '', societe: ''
+};
+let currentStep = 1;
+
+// DOM refs
+const track    = document.getElementById('steps-track');
+const fill     = document.getElementById('progress-fill');
+const counter  = document.getElementById('step-counter');
+const label    = document.getElementById('step-label');
+const btnNext  = document.getElementById('btn-next');
+const btnBack  = document.getElementById('btn-back');
+const nav      = document.getElementById('step-nav');
+
+// ── Sélection d'une carte ──
+function selectChoice(el, key) {
+  const parent = el.parentElement;
+  parent.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  data[key] = el.dataset.val;
+  btnNext.disabled = false;
+}
+
+// ── Validation par étape ──
+function validateStep(n) {
+  switch(n) {
+    case 1: return !!data.film;
+    case 2: return !!data.local;
+    case 3: return !!data.surface;
+    case 4: return document.getElementById('inp-ville').value.trim().length >= 2;
+    case 5: return !!data.urgence;
+    case 6: {
+      const p = document.getElementById('inp-prenom').value.trim();
+      const nom = document.getElementById('inp-nom').value.trim();
+      const tel = document.getElementById('inp-tel').value.trim();
+      const email = document.getElementById('inp-email').value.trim();
+      return p && nom && tel.length >= 10 && /\S+@\S+\.\S+/.test(email);
+    }
+    default: return true;
+  }
+}
+
+// ── Récupération des valeurs des inputs step 4 et 6 ──
+function collectInputs() {
+  data.ville   = document.getElementById('inp-ville').value.trim();
+  data.dept    = document.getElementById('inp-dept').value.trim();
+  data.acces   = document.getElementById('inp-acces').value.trim();
+  data.prenom  = document.getElementById('inp-prenom').value.trim();
+  data.nom     = document.getElementById('inp-nom').value.trim();
+  data.tel     = document.getElementById('inp-tel').value.trim();
+  data.email   = document.getElementById('inp-email').value.trim();
+  data.societe = document.getElementById('inp-societe').value.trim();
+}
+
+// ── Navigation avant ──
+function goNext() {
+  collectInputs();
+  if (!validateStep(currentStep)) return;
+
+  if (currentStep < TOTAL_STEPS) {
+    currentStep++;
+    updateUI();
+    resetNextBtn();
+  } else {
+    // Dernière étape → afficher le récap + calendrier
+    showFinal();
+  }
+}
+
+// ── Navigation arrière ──
+function goBack() {
+  if (currentStep > 1) {
+    currentStep--;
+    updateUI();
+    btnNext.disabled = !validateStep(currentStep);
+  }
+}
+
+// ── Mise à jour de l'UI ──
+function updateUI() {
+  const pct = ((currentStep - 1) / TOTAL_STEPS) * 100;
+  fill.style.width = pct + '%';
+  counter.textContent = currentStep + ' / ' + TOTAL_STEPS;
+  label.textContent = STEP_LABELS[currentStep - 1] || '';
+
+  // Slide
+  track.style.transform = 'translateX(-' + (currentStep - 1) * 100 + '%)';
+  // Animer les enfants de l'étape courante
+  const stepEl = document.getElementById('step-' + currentStep);
+  if (stepEl) {
+    stepEl.querySelectorAll(':scope > *').forEach((el, i) => {
+      el.style.animationDelay = (0.05 + i * 0.07) + 's';
+      el.style.animationName = 'none';
+      el.offsetHeight; // reflow
+      el.style.animationName = '';
+    });
+  }
+
+  // Bouton retour
+  btnBack.style.visibility = currentStep > 1 ? 'visible' : 'hidden';
+
+  // Libellé bouton suivant
+  btnNext.innerHTML = currentStep < TOTAL_STEPS
+    ? 'Continuer <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    : 'Choisir mon créneau <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+
+function resetNextBtn() {
+  btnNext.disabled = !validateStep(currentStep);
+}
+
+// ── Surveillance des inputs texte ──
+['inp-ville', 'inp-prenom', 'inp-nom', 'inp-tel', 'inp-email'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => { btnNext.disabled = !validateStep(currentStep); });
+});
+
+// ── Afficher l'étape finale ──
+function showFinal() {
+  collectInputs();
+
+  // Mettre à jour progress
+  fill.style.width = '100%';
+  counter.textContent = '✓ Complété';
+  label.textContent = 'Choisissez votre créneau';
+
+  // Slide vers step final
+  track.style.transform = 'translateX(-' + TOTAL_STEPS * 100 + '%)';
+
+  // Masquer nav
+  nav.style.display = 'none';
+
+  // Remplir le récap
+  const items = [
+    ['Film souhaité',  data.film],
+    ['Type de local',  data.local],
+    ['Surface estimée', data.surface],
+    ['Ville',          data.ville + (data.dept ? ' (' + data.dept + ')' : '')],
+    ['Urgence',        data.urgence],
+    ['Contact',        data.prenom + ' ' + data.nom],
+    ['Téléphone',      data.tel],
+    ['E-mail',         data.email],
+    data.societe ? ['Société', data.societe] : null,
+    data.acces ? ['Accès', data.acces] : null,
+  ].filter(Boolean);
+
+  const list = document.getElementById('recap-list');
+  list.innerHTML = items.map(([k, v]) =>
+    `<div class="recap-item"><span class="recap-key">${k}</span><span class="recap-val">${v || '—'}</span></div>`
+  ).join('');
+
+  // Construire l'URL du calendrier avec pré-remplissage
+  const params = new URLSearchParams({
+    firstName: data.prenom,
+    lastName:  data.nom,
+    email:     data.email,
+    phone:     data.tel.replace(/\s/g, ''),
+    // Notes enrichies avec les infos projet
+    notes: [
+      'Film : ' + data.film,
+      'Local : ' + data.local,
+      'Surface : ' + data.surface,
+      'Ville : ' + data.ville + (data.dept ? ' (' + data.dept + ')' : ''),
+      'Urgence : ' + data.urgence,
+      data.acces ? 'Accès : ' + data.acces : '',
+      data.societe ? 'Société : ' + data.societe : '',
+    ].filter(Boolean).join(' | ')
+  });
+
+  const calUrl = CALENDAR_BASE + '?' + params.toString() + '&notrack=true';
+  const iframe = document.getElementById('ghl-calendar');
+  iframe.src = calUrl;
+
+  // Masquer le loader quand l'iframe charge
+  iframe.addEventListener('load', function() {
+    const loader = document.getElementById('cal-loader');
+    if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display='none', 400); }
+  });
+
+  // Fallback si pas de message load après 4s
+  setTimeout(() => {
+    const loader = document.getElementById('cal-loader');
+    if (loader && loader.style.display !== 'none') {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display='none', 400);
+    }
+  }, 5000);
+}
+
+// ── Init ──
+(function init() {
+  updateUI();
+  btnNext.disabled = true;
+
+  // Activer le bouton suivant sur step 4 si du texte existe déjà
+  document.getElementById('inp-ville').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); goNext(); }
+  });
+})();
+</script>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

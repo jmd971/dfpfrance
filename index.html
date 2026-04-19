@@ -14,7 +14,10 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,30..100;1,9..144,300..500,30..100&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,30..100;1,9..144,300..500,30..100&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap&display=swap" rel="stylesheet">
+  <!-- Performance : preload image hero (LCP) -->
+  <link rel="preload" as="image" href="assets/img/chantier-palace-paris-lobby.jpg" fetchpriority="high">
+  <!-- Fonts non-bloquantes -->
 <link rel="stylesheet" href="css/styles.css">
 
 <script type="application/ld+json">
@@ -83,7 +86,7 @@
 
       <div class="nav-cta">
         <a href="tel:0186708288" class="nav-phone">01 86 70 82 88</a>
-        <a href="contact.html" class="btn btn-primary">Devis gratuit</a>
+        <a href="rendez-vous.html" class="btn btn-amber btn-no-arrow" style="display:none;">Prendre RDV</a> <a href="rendez-vous.html" class="btn btn-primary">Prendre RDV</a>
         <button class="nav-toggle" aria-label="Ouvrir le menu" aria-controls="nav-menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -120,7 +123,8 @@
         <div class="hero-image">
           <img src="assets/img/chantier-palace-paris-lobby.jpg"
                alt="Techniciens DFP France en train de poser un film sur les vitrages d'un palace parisien — Paris 8e"
-               loading="eager">
+               width="900" height="675"
+               loading="eager" fetchpriority="high">
           <span class="hero-image-caption">Palace parisien — pose de film de sécurité · Paris</span>
         </div>
         <div class="hero-stat-card">
@@ -454,9 +458,9 @@
 <nav class="mobile-cta">
   <a href="tel:0186708288">Appeler</a>
   <a href="https://wa.me/33769628912">WhatsApp</a>
-  <a href="contact.html">Devis gratuit</a>
+  <a href="rendez-vous.html">Prendre RDV</a>
 </nav>
 
-<script src="js/main.js"></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>

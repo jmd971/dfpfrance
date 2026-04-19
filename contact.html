@@ -30,7 +30,7 @@
       </ul>
       <div class="nav-cta">
         <a href="tel:0186708288" class="nav-phone">01 86 70 82 88</a>
-        <a href="contact.html" class="btn btn-primary">Devis gratuit</a>
+        <a href="rendez-vous.html" class="btn btn-amber btn-no-arrow" style="display:none;">Prendre RDV</a> <a href="rendez-vous.html" class="btn btn-primary">Prendre RDV</a>
         <button class="nav-toggle"><span></span><span></span><span></span></button>
       </div>
     </nav>
@@ -54,89 +54,60 @@
 <section>
   <div class="container">
     <div class="hero-grid" style="align-items: start; gap: 4rem;">
-      <!-- Form -->
+      <!-- Formulaire GHL -->
       <div>
-        <div class="form-block">
-          <p class="eyebrow">Demande de devis</p>
-          <h2 style="font-size: 2rem; margin: 1rem 0 2rem; font-weight: 300;">Votre projet en quelques champs.</h2>
+        <p class="eyebrow">Demande de devis</p>
+        <h2 style="font-size:2rem;margin:1rem 0 2rem;font-weight:300;">Votre projet en quelques champs.</h2>
 
-          <form data-form="quote" novalidate>
-            <div class="form-row">
-              <div class="form-field">
-                <label for="name">Nom / Prénom *</label>
-                <input type="text" id="name" name="name" required>
-              </div>
-              <div class="form-field">
-                <label for="company">Société (facultatif)</label>
-                <input type="text" id="company" name="company">
-              </div>
-            </div>
+        <!-- Wrapper iframe GHL -->
+        <div style="
+          border-left: 2px solid var(--amber);
+          background: var(--paper-alt);
+          overflow: hidden;
+          min-height: 600px;
+          position: relative;
+        ">
+          <!-- État de chargement -->
+          <div id="ghl-loader" style="
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--slate-soft);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--paper-alt);
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+          ">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
+                <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1.2s" repeatCount="indefinite"/>
+              </path>
+            </svg>
+            Chargement du formulaire…
+          </div>
 
-            <div class="form-row">
-              <div class="form-field">
-                <label for="email">E-mail *</label>
-                <input type="email" id="email" name="email" required>
-              </div>
-              <div class="form-field">
-                <label for="phone">Téléphone *</label>
-                <input type="tel" id="phone" name="phone" required>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <label for="type">Type de film envisagé</label>
-              <select id="type" name="type">
-                <option value="">Je ne sais pas encore</option>
-                <option value="solaire">Film solaire anti-chaleur</option>
-                <option value="securite">Film de sécurité anti-effraction</option>
-                <option value="graffiti">Film anti-graffiti</option>
-                <option value="intelligent">Film intelligent (opacité variable)</option>
-                <option value="decoratif">Film décoratif / dépoli</option>
-                <option value="multi">Plusieurs films ou projet complet</option>
-              </select>
-            </div>
-
-            <div class="form-field">
-              <label for="sector">Type de local</label>
-              <select id="sector" name="sector">
-                <option value="">Sélectionnez…</option>
-                <option>Bureaux / tertiaire</option>
-                <option>Commerce / vitrine</option>
-                <option>Établissement public / scolaire</option>
-                <option>Habitation / copropriété</option>
-                <option>Industrie / logistique</option>
-                <option>Autre</option>
-              </select>
-            </div>
-
-            <div class="form-row">
-              <div class="form-field">
-                <label for="city">Ville</label>
-                <input type="text" id="city" name="city" placeholder="ex. Versailles">
-              </div>
-              <div class="form-field">
-                <label for="surface">Surface estimée (m²)</label>
-                <input type="text" id="surface" name="surface" placeholder="ex. 50">
-              </div>
-            </div>
-
-            <div class="form-field">
-              <label for="message">Détails du projet</label>
-              <textarea id="message" name="message" placeholder="Décrivez votre situation : exposition, nombre de vitrages, contraintes particulières…"></textarea>
-            </div>
-
-            <div class="form-field" style="flex-direction: row; gap: 0.75rem; align-items: flex-start;">
-              <input type="checkbox" id="rgpd" name="rgpd" required style="width: auto; margin-top: 0.25rem;">
-              <label for="rgpd" style="text-transform: none; letter-spacing: 0; font-family: var(--font-body); font-size: 0.85rem; color: var(--slate); font-weight: 400; line-height: 1.5;">
-                J'accepte que mes informations soient utilisées pour traiter cette demande. Aucune transmission à des tiers.
-              </label>
-            </div>
-
-            <button type="submit" class="btn btn-amber" style="width: 100%; padding: 1.1em 1.75em; margin-top: 0.5rem;">
-              Envoyer ma demande
-            </button>
-          </form>
+          <iframe
+            id="ghl-form-iframe"
+            src="https://webapps.dfpfrance.fr/widget/form/Wt1TpN3pplFfKpHx56w4?notrack=true"
+            style="width:100%;height:700px;border:none;display:block;background:transparent;"
+            scrolling="no"
+            loading="lazy"
+            title="Formulaire de demande de devis DFP France"
+            allow="payment"
+            onload="document.getElementById('ghl-loader').style.opacity='0'; setTimeout(function(){document.getElementById('ghl-loader').style.display='none'},400);"
+          ></iframe>
         </div>
+
+        <p style="margin-top:1rem;font-family:var(--font-mono);font-size:0.72rem;color:var(--slate-soft);letter-spacing:0.05em;">
+          Réponse garantie sous 24 h ouvrées · Diagnostic gratuit, sans engagement
+        </p>
       </div>
 
       <!-- Direct contact -->
@@ -209,7 +180,41 @@
   </div>
 </footer>
 
-<nav class="mobile-cta"><a href="tel:0186708288">Appeler</a><a href="https://wa.me/33769628912">WhatsApp</a><a href="contact.html">Devis gratuit</a></nav>
-<script src="js/main.js"></script>
+<nav class="mobile-cta"><a href="tel:0186708288">Appeler</a><a href="https://wa.me/33769628912">WhatsApp</a><a href="rendez-vous.html">Prendre RDV</a></nav>
+<!-- Auto-resize iframe GHL via postMessage -->
+<script>
+(function () {
+  var iframe = document.getElementById('ghl-form-iframe');
+  if (!iframe) return;
+
+  // GHL envoie la hauteur via window.message
+  window.addEventListener('message', function (e) {
+    if (!e.data || typeof e.data !== 'object') return;
+
+    // Format GHL : { type: 'setHeight', value: 750 }
+    if (e.data.type === 'setHeight' && e.data.value) {
+      iframe.style.height = parseInt(e.data.value, 10) + 'px';
+      return;
+    }
+    // Format alternatif : { height: 750 }
+    if (e.data.height && !isNaN(e.data.height)) {
+      iframe.style.height = parseInt(e.data.height, 10) + 'px';
+      return;
+    }
+    // Format string : "750"
+    if (typeof e.data === 'string' && !isNaN(e.data)) {
+      iframe.style.height = parseInt(e.data, 10) + 'px';
+    }
+  });
+
+  // Fallback : si le formulaire n'envoie pas de message après 3s,
+  // on retire le loader et on fixe une hauteur confortable
+  setTimeout(function () {
+    var loader = document.getElementById('ghl-loader');
+    if (loader) { loader.style.opacity = '0'; setTimeout(function(){ loader.style.display='none'; }, 400); }
+  }, 3000);
+})();
+</script>
+<script src="js/main.js" defer></script>
 </body>
 </html>
