@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnostic gratuit — DFP France</title>
+<meta name="description" content="Préparez votre diagnostic gratuit avec DFP France en 5 questions. Pose de films solaires, sécurité et décoratifs en Île-de-France.">
+<link rel="canonical" href="https://dfpfrance.fr/diagnostic">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,30..100;1,9..144,300..500,30..100&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── Tokens ─────────────────────────────── */
+:root {
+  --ink:        #0E1013;
+  --paper:      #F6F3EC;
+  --paper-alt:  #EDE8DC;
+  --line:       #CFC8B7;
+  --slate:      #4A4E56;
+  --slate-soft: #6B7079;
+  --amber:      #C26A3A;
+  --amber-deep: #8E4A22;
+  --amber-soft: #E8B98D;
+  --teal:       #2BB8B2;
+  --teal-deep:  #1E8F8A;
+  --navy:       #1E3A5F;
+
+  --font-display: 'Fraunces', serif;
+  --font-body:    'Manrope', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --ease:         cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ─────────────────────────────── */
+.page-wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100dvh;
+}
+@media (min-width: 900px) {
+  .page-wrap { grid-template-columns: 340px 1fr; }
+}
+
+/* ── Sidebar ─────────────────────────────── */
+.sidebar {
+  background: var(--ink);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.sidebar::before {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -30%;
+  width: 70%;
+  padding-bottom: 70%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(43,184,178,0.15), transparent 70%);
+  pointer-events: none;
+}
+.sidebar-logo img { height: 38px; width: auto; filter: brightness(0) invert(1); opacity: .9; }
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.sidebar-title em { font-style: italic; color: var(--amber-soft); }
+
+.progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: auto;
+}
+.prog-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  transition: color 0.3s var(--ease);
+  position: relative;
+}
+.prog-item:last-child { border-bottom: none; }
+.prog-item.done   { color: var(--teal); }
+.prog-item.active { color: #fff; font-weight: 500; }
+.prog-dot {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  transition: all 0.3s var(--ease);
+}
+.prog-item.done .prog-dot {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.prog-item.active .prog-dot {
+  border-color: var(--amber);
+  background: rgba(194,106,58,0.15);
+  color: var(--amber);
+}
+
+.sidebar-footer {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.5;
+}
+.sidebar-footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+
+/* ── Chat area ─────────────────────────────── */
+.chat-area {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  position: relative;
+}
+@media (min-width: 900px) { .chat-area { height: 100dvh; } }
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  scroll-behavior: smooth;
+}
+@media (min-width: 600px) { .chat-messages { padding: 2.5rem 3rem 1rem; } }
+
+/* ── Bubble ─────────────────────────────── */
+.bubble-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.45s var(--ease) forwards;
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bubble-wrap.user { align-items: flex-end; }
+.bubble-wrap.bot  { align-items: flex-start; }
+
+.bubble-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ink);
+}
+.bubble-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.bubble-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.bubble-name {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
+}
+
+.bubble {
+  max-width: min(480px, 88%);
+  padding: 0.9rem 1.1rem;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.bubble-wrap.bot .bubble {
+  background: var(--paper-alt);
+  border-left: 2px solid var(--amber);
+  color: var(--ink);
+}
+.bubble-wrap.user .bubble {
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 500;
+}
+.bubble strong { font-weight: 600; }
+
+/* Typing dots */
+.typing .bubble {
+  padding: 1rem 1.25rem;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  animation: blink 1.2s infinite;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%,80%,100%{ opacity:0.3 } 40%{ opacity:1 } }
+
+/* ── Input area ─────────────────────────────── */
+.input-area {
+  padding: 1.25rem 1.5rem 1.5rem;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 80px;
+}
+@media (min-width: 600px) { .input-area { padding: 1.25rem 3rem 2rem; } }
+
+/* Choices grid */
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  text-align: left;
+  border-radius: 0;
+}
+.choice-btn:hover { border-color: var(--amber); background: rgba(194,106,58,0.06); }
+.choice-btn.selected {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #fff;
+}
+.choice-btn .icon { font-size: 1.1rem; line-height: 1; }
+
+/* Text input */
+.text-input-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+.text-input {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  border-radius: 0;
+  transition: border-color 0.2s;
+}
+.text-input:focus { outline: none; border-color: var(--amber); box-shadow: 0 0 0 3px rgba(194,106,58,0.12); }
+.text-input::placeholder { color: var(--slate-soft); }
+
+/* Contact inputs */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+@media (max-width: 480px) { .contact-grid { grid-template-columns: 1fr; } }
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.contact-field label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
+}
+
+/* Multiselect */
+.multi-choices { display: flex; flex-direction: column; gap: 0.4rem; }
+.multi-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  width: 100%;
+}
+.multi-btn:hover { border-color: var(--teal); }
+.multi-btn.selected { border-color: var(--teal); background: rgba(43,184,178,0.07); color: var(--teal-deep); }
+.multi-btn .check {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  transition: all 0.2s;
+}
+.multi-btn.selected .check { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+/* Send / Continue button */
+.send-btn {
+  padding: 0.85rem 1.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+  white-space: nowrap;
+  border-radius: 0;
+}
+.send-btn:hover { background: var(--amber-deep); }
+.send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.send-btn.primary { background: var(--amber); }
+.send-btn.primary:hover { background: var(--amber-deep); }
+
+/* ── Calendar section ─────────────────────────────── */
+.calendar-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.calendar-header {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+@media (min-width: 600px) { .calendar-header { padding: 1.5rem 3rem 1rem; } }
+.calendar-header .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-deep);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.calendar-header .eyebrow::before {
+  content: ''; width: 1.25rem; height: 1px; background: var(--teal);
+}
+.calendar-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.calendar-header p { font-size: 0.85rem; color: var(--slate-soft); }
+
+.summary-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--paper-alt);
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 600px) { .summary-bar { padding: 0.75rem 3rem; } }
+.summary-chip {
+  padding: 0.3rem 0.6rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: var(--slate);
+}
+.summary-chip strong { color: var(--ink); font-weight: 500; }
+
+.calendar-embed {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background: var(--paper);
+}
+.calendar-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--slate-soft);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--paper);
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.calendar-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* ── Responsive sidebar hide ─────────────────────────────── */
+@media (max-width: 899px) {
+  .sidebar { display: none; }
+  .chat-area { height: 100dvh; }
+}
+
+/* ── Scrollbar ─────────────────────────────── */
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-track { background: transparent; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <a href="index.html"><img src="assets/img/logo-dfp.jpg" alt="DFP France"></a>
+    </div>
+
+    <div>
+      <p style="font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem;">Diagnostic gratuit</p>
+      <h1 class="sidebar-title">Votre diagnostic<br>en <em>5 questions</em>,<br>un RDV.</h1>
+    </div>
+
+    <ul class="progress-list" id="progress-list">
+      <li class="prog-item" data-step="1"><span class="prog-dot">1</span>Type de film</li>
+      <li class="prog-item" data-step="2"><span class="prog-dot">2</span>Type de local</li>
+      <li class="prog-item" data-step="3"><span class="prog-dot">3</span>Surface</li>
+      <li class="prog-item" data-step="4"><span class="prog-dot">4</span>Ville</li>
+      <li class="prog-item" data-step="5"><span class="prog-dot">5</span>Contraintes</li>
+      <li class="prog-item" data-step="6"><span class="prog-dot">6</span>Vos coordonnées</li>
+      <li class="prog-item" data-step="7"><span class="prog-dot">✓</span>Choix du créneau</li>
+    </ul>
+
+    <div class="sidebar-footer">
+      Diagnostic gratuit · Sans engagement<br>
+      <a href="tel:0186708288">01 86 70 82 88</a> · Lun–Ven 8h–18h
+    </div>
+  </aside>
+
+  <!-- ── Chat area ── -->
+  <main class="chat-area" id="chat-area">
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="input-area" id="input-area"></div>
+  </main>
+
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   DFP France — Bot de qualification diagnostic
+   State machine, 7 étapes + calendrier GHL
+══════════════════════════════════════════════ */
+
+const GHL_CALENDAR = 'https://link.siboard-consulting.fr/widget/bookings/rdv-dfpfrance';
+const LOGO = 'assets/img/logo-dfp.jpg';
+
+// ── Données collectées ──
+const data = {
+  film: '', film_label: '',
+  local: '', local_label: '',
+  surface: '',
+  ville: '',
+  contraintes: [],
+  prenom: '',
+  telephone: ''
+};
+
+// ── Définition des étapes ──
+const STEPS = [
+  {
+    id: 0, type: 'intro',
+    message: "Bonjour 👋 Je suis l'assistant de <strong>DFP France</strong>.<br><br>En 5 questions, je prépare votre dossier de diagnostic — pour que notre technicien arrive chez vous avec le bon film en tête.<br><br>Comptez <strong>2 minutes</strong>."
+  },
+  {
+    id: 1, type: 'choices', key: 'film',
+    message: "Quel type de film vous intéresse ?",
+    hint: "Vous pouvez choisir même si vous n'êtes pas sûr — on affine ensemble.",
+    choices: [
+      { value: 'solaire',    icon: '🌞', label: 'Film solaire anti-chaleur' },
+      { value: 'securite',   icon: '🔒', label: 'Film de sécurité' },
+      { value: 'decoratif',  icon: '🎨', label: 'Film décoratif ou dépoli' },
+      { value: 'intelligent',icon: '⚡', label: 'Film intelligent (opacité variable)' },
+      { value: 'graffiti',   icon: '🚫', label: 'Film anti-graffiti' },
+      { value: 'sais-pas',   icon: '❓', label: 'Je ne sais pas encore' },
+    ]
+  },
+  {
+    id: 2, type: 'choices', key: 'local',
+    message: "Quel type de local ?",
+    choices: [
+      { value: 'bureaux',    icon: '🏢', label: 'Bureaux / tertiaire' },
+      { value: 'commerce',   icon: '🏪', label: 'Commerce / vitrine' },
+      { value: 'public',     icon: '🏫', label: 'Établissement public ou scolaire' },
+      { value: 'habitat',    icon: '🏠', label: 'Habitation / appartement' },
+      { value: 'industrie',  icon: '🏭', label: 'Industrie / logistique' },
+    ]
+  },
+  {
+    id: 3, type: 'choices', key: 'surface',
+    message: "Surface approximative de vitrages à traiter ?",
+    hint: "Un ordre de grandeur suffit.",
+    choices: [
+      { value: 'moins-20',  icon: '', label: 'Moins de 20 m²' },
+      { value: '20-50',     icon: '', label: '20 à 50 m²' },
+      { value: '50-150',    icon: '', label: '50 à 150 m²' },
+      { value: '150-500',   icon: '', label: '150 à 500 m²' },
+      { value: 'plus-500',  icon: '', label: 'Plus de 500 m²' },
+      { value: 'sais-pas',  icon: '', label: 'Je ne sais pas' },
+    ]
+  },
+  {
+    id: 4, type: 'text', key: 'ville',
+    message: "Dans quelle ville devons-nous intervenir ?",
+    placeholder: 'ex. Versailles, Noisy-le-Grand, Paris 8e…',
+    hint: "Nous couvrons toute l'Île-de-France."
+  },
+  {
+    id: 5, type: 'multiselect', key: 'contraintes',
+    message: "Des contraintes particulières pour l'intervention ?",
+    hint: "Sélectionnez tout ce qui s'applique.",
+    choices: [
+      { value: 'horaires',      label: 'Intervention hors horaires (soir ou week-end)' },
+      { value: 'classe',        label: 'Bâtiment classé ou patrimonial' },
+      { value: 'hauteur',       label: 'Vitrages en hauteur (nacelle probable)' },
+      { value: 'securite-site', label: 'Accès sécurisé ou accompagnement requis' },
+      { value: 'aucune',        label: 'Aucune contrainte particulière' },
+    ]
+  },
+  {
+    id: 6, type: 'contact',
+    message: "Presque terminé ! Votre prénom et numéro de téléphone pour la confirmation du RDV :"
+  },
+  {
+    id: 7, type: 'calendar',
+    message: null
+  }
+];
+
+let currentStep = 0;
+let isTyping = false;
+
+// ── DOM helpers ──
+const $messages = document.getElementById('chat-messages');
+const $input    = document.getElementById('input-area');
+const $progress = document.getElementById('progress-list');
+
+function scrollBottom() {
+  $messages.scrollTo({ top: $messages.scrollHeight, behavior: 'smooth' });
+}
+
+function updateProgress(step) {
+  document.querySelectorAll('.prog-item').forEach(el => {
+    const s = +el.dataset.step;
+    el.classList.remove('done', 'active');
+    if (s < step) el.classList.add('done');
+    else if (s === step) el.classList.add('active');
+    // Update dot for done
+    const dot = el.querySelector('.prog-dot');
+    if (s < step) dot.textContent = '✓';
+    else dot.textContent = s;
+  });
+}
+
+// ── Bubble factory ──
+function addBubble({ role, html, delay = 0, typing = false }) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const wrap = document.createElement('div');
+      wrap.className = `bubble-wrap ${role}`;
+      wrap.style.animationDelay = '0ms';
+
+      if (typing) {
+        wrap.innerHTML = `
+          <div class="bubble-header">
+            <div class="bubble-avatar"><img src="${LOGO}" alt="DFP France"></div>
+            <span class="bubble-name">Assistant DFP</span>
+          </div>
+          <div class="bubble typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
+        $messages.appendChild(wrap);
+        scrollBottom();
+        resolve(wrap);
+        return;
+      }
+
+      if (role === 'bot') {
+        wrap.innerHTML = `
+          <div class="bubble-header">
+            <div class="bubble-avatar"><img src="${LOGO}" alt="DFP France"></div>
+            <span class="bubble-name">Assistant DFP</span>
+          </div>
+          <div class="bubble">${html}</div>`;
+      } else {
+        wrap.innerHTML = `<div class="bubble">${html}</div>`;
+      }
+      $messages.appendChild(wrap);
+      scrollBottom();
+      resolve(wrap);
+    }, delay);
+  });
+}
+
+async function botSay(html, delayBefore = 600) {
+  const typingBubble = await addBubble({ role: 'bot', typing: true });
+  return new Promise(resolve => {
+    setTimeout(() => {
+      typingBubble.remove();
+      addBubble({ role: 'bot', html });
+      scrollBottom();
+      resolve();
+    }, delayBefore);
+  });
+}
+
+function userSay(html) {
+  return addBubble({ role: 'user', html });
+}
+
+// ── Input area renderers ──
+function clearInput() {
+  $input.innerHTML = '';
+}
+
+function renderIntro() {
+  clearInput();
+  $input.innerHTML = `
+    <button class="send-btn primary" id="btn-start" style="align-self:flex-start;">
+      Démarrer mon diagnostic →
+    </button>
+    <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--slate-soft);letter-spacing:.05em;">
+      Gratuit · Sans engagement · 2 minutes
+    </p>`;
+  document.getElementById('btn-start').onclick = () => advance();
+}
+
+function renderChoices(step) {
+  clearInput();
+  const grid = document.createElement('div');
+  grid.className = 'choices';
+
+  step.choices.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.dataset.value = c.value;
+    btn.innerHTML = c.icon
+      ? `<span class="icon">${c.icon}</span> ${c.label}`
+      : c.label;
+    btn.onclick = () => {
+      // Single select — auto-advance
+      userSay(c.icon ? `${c.icon} ${c.label}` : c.label);
+      data[step.key]      = c.value;
+      data[step.key + '_label'] = c.label;
+      advance();
+    };
+    grid.appendChild(btn);
+  });
+
+  $input.appendChild(grid);
+}
+
+function renderText(step) {
+  clearInput();
+  $input.innerHTML = `
+    <div class="text-input-row">
+      <input class="text-input" id="text-val" type="text"
+             placeholder="${step.placeholder}" autocomplete="off">
+      <button class="send-btn" id="btn-send">Valider →</button>
+    </div>`;
+
+  const inp = document.getElementById('text-val');
+  const btn = document.getElementById('btn-send');
+  inp.focus();
+
+  const confirm = () => {
+    const val = inp.value.trim();
+    if (!val) { inp.style.borderColor = 'var(--amber)'; return; }
+    userSay(val);
+    data[step.key] = val;
+    advance();
+  };
+  btn.onclick = confirm;
+  inp.onkeydown = e => { if (e.key === 'Enter') confirm(); };
+}
+
+function renderMultiselect(step) {
+  clearInput();
+  const selected = new Set();
+
+  const list = document.createElement('div');
+  list.className = 'multi-choices';
+
+  step.choices.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'multi-btn';
+    btn.dataset.value = c.value;
+    btn.innerHTML = `<span class="check"></span>${c.label}`;
+
+    btn.onclick = () => {
+      if (c.value === 'aucune') {
+        // Aucune = désélectionne tout + sélectionne seulement aucune
+        selected.clear();
+        list.querySelectorAll('.multi-btn').forEach(b => b.classList.remove('selected'));
+      } else {
+        // Désélectionner "aucune" si présent
+        selected.delete('aucune');
+        list.querySelector('[data-value="aucune"]')?.classList.remove('selected');
+      }
+      if (selected.has(c.value)) {
+        selected.delete(c.value);
+        btn.classList.remove('selected');
+      } else {
+        selected.add(c.value);
+        btn.classList.add('selected');
+      }
+    };
+    list.appendChild(btn);
+  });
+
+  const continueBtn = document.createElement('button');
+  continueBtn.className = 'send-btn';
+  continueBtn.textContent = 'Continuer →';
+  continueBtn.style.marginTop = '.25rem';
+  continueBtn.onclick = () => {
+    const vals = [...selected];
+    if (vals.length === 0) { continueBtn.style.outline = '2px solid var(--amber)'; return; }
+    const labels = vals.map(v => step.choices.find(c => c.value === v)?.label).filter(Boolean);
+    userSay(labels.join(', '));
+    data.contraintes = vals;
+    advance();
+  };
+
+  $input.appendChild(list);
+  $input.appendChild(continueBtn);
+}
+
+function renderContact() {
+  clearInput();
+  $input.innerHTML = `
+    <div class="contact-grid">
+      <div class="contact-field">
+        <label for="inp-prenom">Prénom</label>
+        <input class="text-input" id="inp-prenom" type="text" placeholder="ex. Marie" autocomplete="given-name">
+      </div>
+      <div class="contact-field">
+        <label for="inp-tel">Téléphone</label>
+        <input class="text-input" id="inp-tel" type="tel" placeholder="ex. 06 12 34 56 78" autocomplete="tel">
+      </div>
+    </div>
+    <button class="send-btn primary" id="btn-contact">Réserver mon créneau →</button>
+    <p style="font-family:var(--font-mono);font-size:0.65rem;color:var(--slate-soft);letter-spacing:.04em;">
+      Vos données ne sont utilisées que pour organiser le diagnostic.
+    </p>`;
+
+  const pren = document.getElementById('inp-prenom');
+  const tel  = document.getElementById('inp-tel');
+  const btn  = document.getElementById('btn-contact');
+
+  pren.focus();
+
+  btn.onclick = () => {
+    const p = pren.value.trim();
+    const t = tel.value.trim();
+    if (!p) { pren.style.borderColor = 'var(--amber)'; pren.focus(); return; }
+    if (!t) { tel.style.borderColor  = 'var(--amber)'; tel.focus();  return; }
+    data.prenom    = p;
+    data.telephone = t;
+    userSay(`${p} · ${t}`);
+    advance();
+  };
+
+  [pren, tel].forEach(i => i.onkeydown = e => { if (e.key === 'Enter') btn.click(); });
+}
+
+// ── Calendar (étape finale) ──
+function renderCalendar() {
+  // Remplacer toute la zone chat par le calendrier
+  const area = document.getElementById('chat-area');
+  area.innerHTML = '';
+
+  // Construire l'URL GHL avec paramètres de pré-remplissage
+  const params = new URLSearchParams({
+    firstName: data.prenom,
+    phone: data.telephone.replace(/\s/g, ''),
+  });
+  const calUrl = `${GHL_CALENDAR}?${params.toString()}`;
+
+  // Résumé en chips
+  const contraintes_labels = data.contraintes.map(v => {
+    const found = STEPS[5].choices.find(c => c.value === v);
+    return found ? found.label : v;
+  }).join(' · ') || 'Aucune';
+
+  const summaryItems = [
+    { k: 'Film',        v: data.film_label || data.film },
+    { k: 'Local',       v: data.local_label || data.local },
+    { k: 'Surface',     v: data.surface },
+    { k: 'Ville',       v: data.ville },
+    { k: 'Contraintes', v: contraintes_labels },
+  ];
+
+  const chipsHtml = summaryItems.map(i =>
+    `<span class="summary-chip"><strong>${i.k}</strong> — ${i.v}</span>`
+  ).join('');
+
+  area.innerHTML = `
+    <div class="calendar-section">
+      <div class="calendar-header">
+        <p class="eyebrow">Étape finale — choisissez votre créneau</p>
+        <h2>Bonjour ${data.prenom} ! Choisissez le créneau de votre diagnostic.</h2>
+        <p>Notre technicien se déplacera gratuitement à <strong>${data.ville}</strong>.</p>
+      </div>
+      <div class="summary-bar">${chipsHtml}</div>
+      <div class="calendar-embed">
+        <div class="calendar-loader" id="cal-loader">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2">
+              <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+          <span>Chargement du calendrier…</span>
+        </div>
+        <iframe
+          src="${calUrl}"
+          title="Calendrier de réservation DFP France"
+          style="width:100%;height:100%;border:none;"
+          scrolling="yes"
+          onload="var l=document.getElementById('cal-loader');if(l){l.style.opacity='0';setTimeout(function(){l.remove()},400);}">
+        </iframe>
+      </div>
+    </div>`;
+
+  // Mise à jour de la sidebar
+  updateProgress(7);
+}
+
+// ── Avancer dans le flow ──
+async function advance() {
+  currentStep++;
+  const step = STEPS[currentStep];
+  if (!step) return;
+
+  clearInput();
+  updateProgress(currentStep);
+
+  if (step.type === 'calendar') {
+    await botSay("Parfait 🎉 Votre dossier est prêt ! Plus qu'à choisir votre créneau de diagnostic.");
+    setTimeout(() => renderCalendar(), 1200);
+    return;
+  }
+
+  // Afficher le message du bot
+  await botSay(step.message);
+
+  if (step.hint) {
+    await botSay(`<em style="color:var(--slate-soft);font-size:.9em;">${step.hint}</em>`, 300);
+  }
+
+  // Afficher les inputs
+  switch (step.type) {
+    case 'intro':       renderIntro();            break;
+    case 'choices':     renderChoices(step);      break;
+    case 'text':        renderText(step);         break;
+    case 'multiselect': renderMultiselect(step);  break;
+    case 'contact':     renderContact();          break;
+  }
+}
+
+// ── Init ──
+async function init() {
+  updateProgress(1);
+  const intro = STEPS[0];
+  await botSay(intro.message, 500);
+  renderIntro();
+}
+
+init();
+</script>
+</body>
+</html>
