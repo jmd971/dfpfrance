@@ -1469,7 +1469,6 @@ section.tight { padding-block: clamp(3rem, 5vw, 4rem); }
   width: auto;
   margin-bottom: 1rem;
   display: block;
-  filter: brightness(0) saturate(100%); /* Noir sur fond crème */
 }
 
 @keyframes fadeUp {
