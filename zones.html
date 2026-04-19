@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zones d'intervention — Films pour vitrages en Île-de-France | DFP France</title>
+<meta name="description" content="DFP France intervient sur tout le 77, 78, 95 et Paris pour la pose de films solaires, sécurité et décoratifs. Diagnostic gratuit sous 48h sur toutes nos zones.">
+<link rel="canonical" href="https://dfpfrance.fr/zones">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,30..100;1,9..144,300..500,30..100&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+.zones-dept {
+  padding-block: clamp(2.5rem, 4vw, 3.5rem);
+  border-bottom: 1px solid var(--line);
+}
+.zones-dept:last-child { border-bottom: none; }
+
+.dept-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.dept-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .35rem .9rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  letter-spacing: .15em;
+  font-weight: 500;
+}
+.dept-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 300;
+  letter-spacing: -.02em;
+}
+.dept-desc {
+  color: var(--slate);
+  font-size: .9rem;
+  max-width: 60ch;
+  margin-bottom: 1.75rem;
+}
+
+.cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: .5rem;
+}
+.city-card {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  transition: all .2s var(--ease-out);
+  text-decoration: none;
+  color: inherit;
+}
+.city-card:hover {
+  border-color: var(--amber);
+  background: rgba(194,106,58,.04);
+}
+.city-card .city-name {
+  font-weight: 600;
+  font-size: .95rem;
+  color: var(--ink);
+}
+.city-card .city-note {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
+}
+.city-card.featured {
+  border-color: var(--amber);
+  background: rgba(194,106,58,.05);
+}
+.city-card.featured .city-name { color: var(--amber-deep); }
+
+/* Map SVG zone */
+.zone-visual {
+  background: var(--paper-alt);
+  border-left: 2px solid var(--teal);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.zone-visual h3 {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--teal-deep);
+}
+</style>
+</head>
+<body>
+
+<div class="announce"><strong>Été 2026 —</strong>&nbsp;Délais de pose qui s'allongent à partir de mai. <a href="contact.html">Réservez votre créneau →</a></div>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a class="brand-logo" href="index.html"><img src="assets/img/logo-dfp.jpg" alt="DFP France" width="120" height="36"></a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-dropdown"><button>Services</button><div class="nav-dropdown-menu"><span class="menu-label">Films techniques</span><a href="services/film-solaire.html">Film solaire</a><a href="services/film-securite.html">Film de sécurité</a><a href="services/film-anti-graffiti.html">Film anti-graffiti</a><a href="services/film-intelligent.html">Film intelligent</a></div></li>
+        <li class="nav-dropdown"><button>Secteurs</button><div class="nav-dropdown-menu"><span class="menu-label">Par secteur</span><a href="secteurs/bureaux.html">Bureaux</a><a href="index.html#secteurs">Commerces</a><a href="index.html#secteurs">Établissements publics</a><a href="index.html#secteurs">Habitat</a></div></li>
+        <li><a href="realisations.html">Réalisations</a></li>
+        <li><a href="zones.html" class="active">Zones</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:0186708288" class="nav-phone">01 86 70 82 88</a>
+        <a href="contact.html" class="btn btn-primary">Devis gratuit</a>
+        <button class="nav-toggle"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="page-header">
+  <div class="container">
+    <nav class="breadcrumb"><a href="index.html">Accueil</a><span>/</span><span>Zones d'intervention</span></nav>
+    <p class="eyebrow">Zones d'intervention</p>
+    <h1 class="mt-5">Présents sur tout le <em>77, 78, 95</em> et Paris.</h1>
+    <p class="lead">Basés à Champs-sur-Marne, nous intervenons sur l'ensemble de l'Île-de-France. Diagnostic gratuit sous 48 h sur toutes nos zones de couverture.</p>
+  </div>
+</section>
+
+<!-- Synthèse stats -->
+<section class="tight">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat"><span class="num">4<span class="unit"> dept</span></span><span class="label">Départements couverts en priorité</span></div>
+      <div class="stat"><span class="num">40<span class="unit">+</span></span><span class="label">Villes desservies régulièrement</span></div>
+      <div class="stat"><span class="num">48<span class="unit">h</span></span><span class="label">Délai de diagnostic sur site, gratuit</span></div>
+      <div class="stat"><span class="num">IDF</span><span class="label">Toute l'Île-de-France sur devis</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <!-- 77 -->
+    <div class="zones-dept">
+      <div class="dept-header">
+        <span class="dept-badge">77</span>
+        <h2 class="dept-name">Seine-et-Marne — Zone principale</h2>
+      </div>
+      <p class="dept-desc">Notre département de rattachement. Intervention en J+1 ou J+2 sur la plupart des villes du 77, délais les plus courts, connaissance fine du tissu économique local.</p>
+      <div class="cities-grid">
+        <a class="city-card featured" href="contact.html">
+          <span class="city-name">Champs-sur-Marne</span>
+          <span class="city-note">Siège DFP · 77420</span>
+        </a>
+        <a class="city-card" href="contact.html"><span class="city-name">Noisiel</span><span class="city-note">77186</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Torcy</span><span class="city-note">77200</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Lognes</span><span class="city-note">77185</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Noisy-le-Grand</span><span class="city-note">77 / 93</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Bry-sur-Marne</span><span class="city-note">94360</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Vaires-sur-Marne</span><span class="city-note">77360</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Chelles</span><span class="city-note">77500</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Meaux</span><span class="city-note">77100</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Melun</span><span class="city-note">77000</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Marne-la-Vallée</span><span class="city-note">77 — secteur</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Lagny-sur-Marne</span><span class="city-note">77400</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Pontault-Combault</span><span class="city-note">77340</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Roissy-en-Brie</span><span class="city-note">77680</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Fontainebleau</span><span class="city-note">77300</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Provins</span><span class="city-note">77160</span></a>
+      </div>
+    </div>
+
+    <!-- 78 -->
+    <div class="zones-dept">
+      <div class="dept-header">
+        <span class="dept-badge">78</span>
+        <h2 class="dept-name">Yvelines — Zone secondaire prioritaire</h2>
+      </div>
+      <p class="dept-desc">Fort tissu tertiaire (Versailles, Vélizy, Saint-Germain), nombreux sièges d'entreprise et parcs d'activités. Intervention régulière, connaissance du marché B2B local.</p>
+      <div class="cities-grid">
+        <a class="city-card featured" href="zones.html"><span class="city-name">Versailles</span><span class="city-note">78000 · Réf. chantier</span></a>
+        <a class="city-card featured" href="contact.html"><span class="city-name">Vélizy-Villacoublay</span><span class="city-note">78140 · Zone tertiaire</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Saint-Germain-en-Laye</span><span class="city-note">78100</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Poissy</span><span class="city-note">78300</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Sartrouville</span><span class="city-note">78500</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Houilles</span><span class="city-note">78800</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Chatou</span><span class="city-note">78400</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Maisons-Laffitte</span><span class="city-note">78600</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Saint-Cyr-l'École</span><span class="city-note">78210</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Marly-le-Roi</span><span class="city-note">78160</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Le Pecq</span><span class="city-note">78230</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Achères</span><span class="city-note">78260</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Conflans-Sainte-Honorine</span><span class="city-note">78700</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Élancourt</span><span class="city-note">78990</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Trappes</span><span class="city-note">78190</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Montigny-le-Bretonneux</span><span class="city-note">78180</span></a>
+      </div>
+    </div>
+
+    <!-- 95 -->
+    <div class="zones-dept">
+      <div class="dept-header">
+        <span class="dept-badge">95</span>
+        <h2 class="dept-name">Val-d'Oise — Zone en développement</h2>
+      </div>
+      <p class="dept-desc">Couverture en expansion sur les principales villes du 95, notamment le bassin de Cergy-Pontoise et Argenteuil. Délais légèrement plus longs (J+2 à J+4) selon la charge.</p>
+      <div class="cities-grid">
+        <a class="city-card featured" href="contact.html"><span class="city-name">Argenteuil</span><span class="city-note">95100</span></a>
+        <a class="city-card featured" href="contact.html"><span class="city-name">Cergy</span><span class="city-note">95000 · Pôle tertiaire</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Pontoise</span><span class="city-note">95300</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Éragny</span><span class="city-note">95610</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Osny</span><span class="city-note">95520</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Saint-Ouen-l'Aumône</span><span class="city-note">95310</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Enghien-les-Bains</span><span class="city-note">95880</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Montmorency</span><span class="city-note">95160</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Sarcelles</span><span class="city-note">95200</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Villiers-le-Bel</span><span class="city-note">95400</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Gonesse</span><span class="city-note">95500</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Roissy-en-France</span><span class="city-note">95700</span></a>
+      </div>
+    </div>
+
+    <!-- Paris -->
+    <div class="zones-dept">
+      <div class="dept-header">
+        <span class="dept-badge">75</span>
+        <h2 class="dept-name">Paris — Intra-muros</h2>
+      </div>
+      <p class="dept-desc">Référence sur palaces, établissements culturels et commerces de luxe parisiens. Présence régulière à Paris, avec expertise spécifique sur bâtiments classés et zones ABF.</p>
+      <div class="cities-grid">
+        <a class="city-card featured" href="realisations/ecole-duperre-paris3.html"><span class="city-name">Paris 3e — Marais</span><span class="city-note">Réf. École Duperré</span></a>
+        <a class="city-card featured" href="realisations/palace-paris.html"><span class="city-name">Paris 8e</span><span class="city-note">Réf. Palace · Champs-Élysées</span></a>
+        <a class="city-card featured" href="portfolio.html"><span class="city-name">Paris 6e</span><span class="city-note">Réf. Cabinet radiologie</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Paris 1er – 2e</span><span class="city-note">Centre · Palais Royal</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Paris 4e</span><span class="city-note">Île de la Cité · St-Louis</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Paris 7e</span><span class="city-note">Invalides · Champ-de-Mars</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Paris 9e – 10e</span><span class="city-note">Opéra · Canal St-Martin</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Paris 11e – 12e</span><span class="city-note">Bastille · Nation</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Paris 15e – 16e</span><span class="city-note">Vaugirard · Trocadéro</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Paris 17e</span><span class="city-note">Batignolles · Clichy</span></a>
+      </div>
+    </div>
+
+    <!-- Petite couronne -->
+    <div class="zones-dept">
+      <div class="dept-header">
+        <span class="dept-badge">92 · 93 · 94</span>
+        <h2 class="dept-name">Petite couronne — Sur demande</h2>
+      </div>
+      <p class="dept-desc">Hauts-de-Seine, Seine-Saint-Denis, Val-de-Marne : intervention possible sur chantiers importants (surface > 100 m²) ou projets urgents. Nous consulter.</p>
+      <div class="cities-grid">
+        <a class="city-card" href="contact.html"><span class="city-name">Colombes</span><span class="city-note">92700</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Nanterre</span><span class="city-note">92000</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Boulogne-Billancourt</span><span class="city-note">92100</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Créteil</span><span class="city-note">94000</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Vincennes</span><span class="city-note">94300</span></a>
+        <a class="city-card" href="contact.html"><span class="city-name">Saint-Denis</span><span class="city-note">93200</span></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-block">
+  <div class="container">
+    <div>
+      <p class="eyebrow" style="color:var(--teal);">Votre ville</p>
+      <h2 class="mt-3">Vous ne voyez pas votre ville ? <em>Contactez-nous quand même.</em></h2>
+      <p class="mt-5">Nous nous déplaçons sur toute l'Île-de-France pour les projets importants. Un appel suffit pour vérifier la faisabilité.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-amber">Demander un diagnostic</a>
+        <a href="tel:0186708288" class="btn btn-outline btn-no-arrow">01 86 70 82 88</a>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-line"><span class="label">Téléphone</span><a href="tel:0186708288" class="value">01 86 70 82 88</a></div>
+      <div class="contact-line"><span class="label">WhatsApp</span><a href="https://wa.me/33769628912" class="value">+33 7 69 62 89 12</a></div>
+      <div class="contact-line"><span class="label">Siège</span><span class="value" style="font-size:1.1rem;">Champs-sur-Marne (77420)</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><img src="assets/img/logo-dfp.jpg" alt="DFP France" class="footer-logo-img" width="110"><p class="footer-desc">Spécialiste de la pose de films techniques pour vitrages en Île-de-France.</p><div class="footer-contact"><a href="tel:0186708288" class="phone">01 86 70 82 88</a><a href="mailto:contact@dfpfrance.fr">contact@dfpfrance.fr</a><span>11 Rue Albert Einstein, 77420 Champs-sur-Marne</span></div></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services/film-solaire.html">Film solaire</a></li><li><a href="services/film-securite.html">Film de sécurité</a></li><li><a href="services/film-anti-graffiti.html">Film anti-graffiti</a></li><li><a href="services/film-intelligent.html">Film intelligent</a></li></ul></div>
+      <div class="footer-col"><h4>Zones prioritaires</h4><ul><li><a href="zones.html#77">Seine-et-Marne (77)</a></li><li><a href="zones.html#78">Yvelines (78)</a></li><li><a href="zones.html#95">Val-d'Oise (95)</a></li><li><a href="zones.html#75">Paris (75)</a></li></ul></div>
+      <div class="footer-col"><h4>Entreprise</h4><ul><li><a href="a-propos.html">À propos</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DFP France · Tous droits réservés</span><ul><li><a href="#">Mentions légales</a></li><li><a href="#">Confidentialité</a></li></ul></div>
+  </div>
+</footer>
+
+<nav class="mobile-cta"><a href="tel:0186708288">Appeler</a><a href="https://wa.me/33769628912">WhatsApp</a><a href="contact.html">Devis gratuit</a></nav>
+<script src="js/main.js" defer></script>
+<script src="js/chatbot-widget.js" defer></script>
+</body>
+</html>

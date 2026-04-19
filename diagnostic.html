@@ -510,6 +510,7 @@ body {
 ══════════════════════════════════════════════ */
 
 const GHL_CALENDAR = 'https://link.siboard-consulting.fr/widget/bookings/rdv-dfpfrance';
+const GHL_FORM    = 'https://webapps.dfpfrance.fr/widget/form/Wt1TpN3pplFfKpHx56w4';
 const LOGO = 'assets/img/logo-dfp.jpg';
 
 // ── Données collectées ──
@@ -830,31 +831,49 @@ function renderContact() {
 
 // ── Calendar (étape finale) ──
 function renderCalendar() {
-  // Remplacer toute la zone chat par le calendrier
   const area = document.getElementById('chat-area');
   area.innerHTML = '';
 
-  // Construire l'URL GHL avec paramètres de pré-remplissage
-  const params = new URLSearchParams({
-    firstName: data.prenom,
-    phone: data.telephone.replace(/\s/g, ''),
-  });
-  const calUrl = `${GHL_CALENDAR}?${params.toString()}`;
-
-  // Résumé en chips
-  const contraintes_labels = data.contraintes.map(v => {
+  // Construire les paramètres communs (pré-remplissage GHL)
+  const filmLabel     = data.film_label || data.film;
+  const localLabel    = data.local_label || data.local;
+  const contraintesLabel = data.contraintes.map(v => {
     const found = STEPS[5].choices.find(c => c.value === v);
     return found ? found.label : v;
-  }).join(' · ') || 'Aucune';
+  }).join(', ') || 'Aucune';
 
+  // URL Calendrier GHL — pré-remplissage natif GHL
+  const calParams = new URLSearchParams({
+    firstName: data.prenom,
+    phone:     data.telephone.replace(/\s/g, ''),
+    // Champs custom GHL si configurés côté CRM
+    'customData[type_film]':   filmLabel,
+    'customData[type_local]':  localLabel,
+    'customData[surface]':     data.surface,
+    'customData[ville]':       data.ville,
+    'customData[contraintes]': contraintesLabel,
+  });
+  const calUrl = `${GHL_CALENDAR}?${calParams.toString()}`;
+
+  // URL Formulaire GHL — pré-remplissage (champs standard + notes)
+  const formNote = `Film : ${filmLabel} | Local : ${localLabel} | Surface : ${data.surface} | Ville : ${data.ville} | Contraintes : ${contraintesLabel}`;
+  const formParams = new URLSearchParams({
+    firstName: data.prenom,
+    phone:     data.telephone.replace(/\s/g, ''),
+    // Le message/notes récapitule tout le projet
+    message:   formNote,
+    notes:     formNote,
+  });
+  const formUrl = `${GHL_FORM}?notrack=true&${formParams.toString()}`;
+
+  // Résumé en chips
   const summaryItems = [
-    { k: 'Film',        v: data.film_label || data.film },
-    { k: 'Local',       v: data.local_label || data.local },
+    { k: 'Film',        v: filmLabel },
+    { k: 'Local',       v: localLabel },
     { k: 'Surface',     v: data.surface },
     { k: 'Ville',       v: data.ville },
-    { k: 'Contraintes', v: contraintes_labels },
+    { k: 'Contraintes', v: contraintesLabel },
   ];
-
   const chipsHtml = summaryItems.map(i =>
     `<span class="summary-chip"><strong>${i.k}</strong> — ${i.v}</span>`
   ).join('');
@@ -863,11 +882,31 @@ function renderCalendar() {
     <div class="calendar-section">
       <div class="calendar-header">
         <p class="eyebrow">Étape finale — choisissez votre créneau</p>
-        <h2>Bonjour ${data.prenom} ! Choisissez le créneau de votre diagnostic.</h2>
+        <h2>Bonjour ${data.prenom}&nbsp;! Choisissez le créneau de votre diagnostic.</h2>
         <p>Notre technicien se déplacera gratuitement à <strong>${data.ville}</strong>.</p>
       </div>
+
       <div class="summary-bar">${chipsHtml}</div>
-      <div class="calendar-embed">
+
+      <!-- Sélecteur vue : Calendrier ou Formulaire -->
+      <div style="display:flex;gap:.5rem;padding:.75rem 1.5rem;border-bottom:1px solid var(--line);background:var(--paper);">
+        <button id="tab-cal" onclick="showCal()" style="
+          flex:1;padding:.65rem 1rem;border:none;cursor:pointer;
+          background:var(--ink);color:var(--paper);
+          font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+          transition:background .2s;">
+          📅 Réserver un créneau
+        </button>
+        <button id="tab-form" onclick="showForm()" style="
+          flex:1;padding:.65rem 1rem;border:1px solid var(--line);cursor:pointer;
+          background:var(--paper);color:var(--slate);
+          font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+          transition:all .2s;">
+          ✉️ Envoyer ma demande
+        </button>
+      </div>
+
+      <div class="calendar-embed" id="embed-area">
         <div class="calendar-loader" id="cal-loader">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5">
             <circle cx="12" cy="12" r="10"/>
@@ -875,11 +914,11 @@ function renderCalendar() {
               <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
             </path>
           </svg>
-          <span>Chargement du calendrier…</span>
+          <span>Chargement…</span>
         </div>
-        <iframe
+        <iframe id="embed-iframe"
           src="${calUrl}"
-          title="Calendrier de réservation DFP France"
+          title="Calendrier DFP France"
           style="width:100%;height:100%;border:none;"
           scrolling="yes"
           onload="var l=document.getElementById('cal-loader');if(l){l.style.opacity='0';setTimeout(function(){l.remove()},400);}">
@@ -887,7 +926,24 @@ function renderCalendar() {
       </div>
     </div>`;
 
-  // Mise à jour de la sidebar
+  // Fonctions de bascule onglets
+  window.__calUrl  = calUrl;
+  window.__formUrl = formUrl;
+  window.showCal  = function() {
+    document.getElementById('embed-iframe').src = window.__calUrl;
+    document.getElementById('tab-cal').style.background  = 'var(--ink)';
+    document.getElementById('tab-cal').style.color       = 'var(--paper)';
+    document.getElementById('tab-form').style.background = 'var(--paper)';
+    document.getElementById('tab-form').style.color      = 'var(--slate)';
+  };
+  window.showForm = function() {
+    document.getElementById('embed-iframe').src = window.__formUrl;
+    document.getElementById('tab-form').style.background = 'var(--ink)';
+    document.getElementById('tab-form').style.color      = 'var(--paper)';
+    document.getElementById('tab-cal').style.background  = 'var(--paper)';
+    document.getElementById('tab-cal').style.color       = 'var(--slate)';
+  };
+
   updateProgress(7);
 }
 
