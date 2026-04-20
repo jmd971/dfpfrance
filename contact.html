@@ -30,7 +30,7 @@
       </ul>
       <div class="nav-cta">
         <a href="tel:0186708288" class="nav-phone">01 86 70 82 88</a>
-        <a href="diagnostic.html" class="btn btn-amber btn-no-arrow" style="display:none;">Prendre RDV</a> <a href="diagnostic.html" class="btn btn-primary">Prendre RDV</a>
+        <a href="https://link.siboard-consulting.fr/widget/bookings/rdv-dfpfrance" target="_blank" rel="noopener" class="btn btn-amber btn-no-arrow" style="display:none;">Prendre RDV</a> <a href="https://link.siboard-consulting.fr/widget/bookings/rdv-dfpfrance" target="_blank" rel="noopener" class="btn btn-primary">Prendre RDV</a>
         <button class="nav-toggle"><span></span><span></span><span></span></button>
       </div>
     </nav>
@@ -54,57 +54,44 @@
 <section>
   <div class="container">
     <div class="hero-grid" style="align-items: start; gap: 4rem;">
-      <!-- Formulaire GHL -->
+      <!-- Parcours bot diagnostic -->
       <div>
-        <p class="eyebrow">Demande de devis</p>
-        <h2 style="font-size:2rem;margin:1rem 0 2rem;font-weight:300;">Votre projet en quelques champs.</h2>
+        <p class="eyebrow">Demande de diagnostic</p>
+        <h2 style="font-size:2rem;margin:1rem 0 1.5rem;font-weight:300;">5 questions pour préparer <em>votre visite.</em></h2>
+        <p style="color:var(--slate);margin-bottom:2rem;max-width:48ch;line-height:1.6;">
+          Répondez à 5 questions rapides — type de film, surface, ville, contraintes.
+          Votre dossier est transmis directement à DFP France, et vous choisissez votre créneau de diagnostic immédiatement.
+        </p>
 
-        <!-- Wrapper iframe GHL -->
-        <div style="
-          border-left: 2px solid var(--amber);
-          background: var(--paper-alt);
-          min-height: 700px;
-          position: relative;
-        ">
-          <!-- État de chargement -->
-          <div id="ghl-loader" style="
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            color: var(--slate-soft);
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            background: var(--paper-alt);
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-          ">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round">
-              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
-                <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1.2s" repeatCount="indefinite"/>
-              </path>
-            </svg>
-            Chargement du formulaire…
+        <!-- Étapes visuelles -->
+        <div style="display:flex;flex-direction:column;gap:0;margin-bottom:2.5rem;border-top:1px solid var(--line);">
+          <div style="display:flex;align-items:center;gap:1.25rem;padding:1rem 0;border-bottom:1px solid var(--line);">
+            <span style="font-family:var(--font-mono);font-size:.7rem;color:var(--amber);letter-spacing:.1em;width:1.5rem;flex-shrink:0;">01</span>
+            <span style="font-size:.95rem;color:var(--ink);">Type de film + type de local</span>
           </div>
-
-          <iframe
-            id="ghl-form-iframe"
-            src="https://webapps.dfpfrance.fr/widget/form/Wt1TpN3pplFfKpHx56w4?notrack=true"
-            style="width:100%;height:800px;border:none;display:block;background:transparent;"
-            loading="lazy"
-            title="Formulaire de demande de devis DFP France"
-            allow="payment"
-            onload="document.getElementById('ghl-loader').style.opacity='0'; setTimeout(function(){document.getElementById('ghl-loader').style.display='none'},400);"
-          ></iframe>
+          <div style="display:flex;align-items:center;gap:1.25rem;padding:1rem 0;border-bottom:1px solid var(--line);">
+            <span style="font-family:var(--font-mono);font-size:.7rem;color:var(--amber);letter-spacing:.1em;width:1.5rem;flex-shrink:0;">02</span>
+            <span style="font-size:.95rem;color:var(--ink);">Surface estimée + ville</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.25rem;padding:1rem 0;border-bottom:1px solid var(--line);">
+            <span style="font-family:var(--font-mono);font-size:.7rem;color:var(--amber);letter-spacing:.1em;width:1.5rem;flex-shrink:0;">03</span>
+            <span style="font-size:.95rem;color:var(--ink);">Contraintes d'accès</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.25rem;padding:1rem 0;border-bottom:1px solid var(--line);">
+            <span style="font-family:var(--font-mono);font-size:.7rem;color:var(--amber);letter-spacing:.1em;width:1.5rem;flex-shrink:0;">04</span>
+            <span style="font-size:.95rem;color:var(--ink);">Vos coordonnées (prénom + téléphone)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.25rem;padding:1rem 0;border-bottom:1px solid var(--line);">
+            <span style="font-family:var(--font-mono);font-size:.7rem;color:var(--teal);letter-spacing:.1em;width:1.5rem;flex-shrink:0;">✓</span>
+            <span style="font-size:.95rem;color:var(--ink);font-weight:500;">Choix du créneau de diagnostic sur le calendrier</span>
+          </div>
         </div>
 
-        <p style="margin-top:1rem;font-family:var(--font-mono);font-size:0.72rem;color:var(--slate-soft);letter-spacing:0.05em;">
-          Réponse garantie sous 24 h ouvrées · Diagnostic gratuit, sans engagement
+        <a href="https://link.siboard-consulting.fr/widget/bookings/rdv-dfpfrance" target="_blank" rel="noopener" class="btn btn-amber" style="font-size:1.05rem;padding:1rem 2rem;">
+          Démarrer mon diagnostic gratuit
+        </a>
+        <p style="margin-top:1rem;font-family:var(--font-mono);font-size:0.7rem;color:var(--slate-soft);letter-spacing:0.05em;">
+          2 minutes · Sans engagement · Réponse sous 24 h ouvrées
         </p>
       </div>
 
@@ -178,7 +165,7 @@
   </div>
 </footer>
 
-<nav class="mobile-cta"><a href="tel:0186708288">Appeler</a><a href="https://wa.me/33769628912">WhatsApp</a><a href="diagnostic.html">Prendre RDV</a></nav>
+<nav class="mobile-cta"><a href="tel:0186708288">Appeler</a><a href="https://wa.me/33769628912">WhatsApp</a><a href="https://link.siboard-consulting.fr/widget/bookings/rdv-dfpfrance" target="_blank" rel="noopener">Prendre RDV</a></nav>
 <!-- Auto-resize iframe GHL via postMessage -->
 <script>
 (function () {

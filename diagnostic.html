@@ -949,6 +949,49 @@ function renderCalendar() {
   updateProgress(7);
 }
 
+// ── Webhook GHL — envoi des données de qualification ──
+const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/setFPuJOKHpohCiQUhf4/webhook-trigger/96e132a1-4c48-4901-842b-a011161b1f3f';
+
+async function sendToGHL() {
+  const contraintes_label = data.contraintes.map(v => {
+    const found = STEPS[5].choices.find(c => c.value === v);
+    return found ? found.label : v;
+  }).join(', ') || 'Aucune';
+
+  const payload = {
+    // Champs contact GHL natifs
+    firstName:  data.prenom,
+    phone:      data.telephone.replace(/\s/g, ''),
+    // Données de qualification (champs custom GHL)
+    type_film:    data.film_label || data.film,
+    type_local:   data.local_label || data.local,
+    surface:      data.surface,
+    ville:        data.ville,
+    contraintes:  contraintes_label,
+    // Résumé lisible pour les notes GHL
+    notes: [
+      'Demande via bot diagnostic DFP France',
+      'Film : '        + (data.film_label  || data.film),
+      'Local : '       + (data.local_label || data.local),
+      'Surface : '     + data.surface,
+      'Ville : '       + data.ville,
+      'Contraintes : ' + contraintes_label,
+    ].join('\n'),
+    source: 'Bot diagnostic dfpfrance.fr'
+  };
+
+  try {
+    await fetch(GHL_WEBHOOK, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    });
+  } catch (e) {
+    // Silencieux — ne pas bloquer le prospect si le réseau échoue
+    console.warn('GHL webhook error:', e);
+  }
+}
+
 // ── Avancer dans le flow ──
 async function advance() {
   currentStep++;
@@ -959,8 +1002,13 @@ async function advance() {
   updateProgress(currentStep);
 
   if (step.type === 'calendar') {
-    await botSay("Parfait 🎉 Votre dossier est prêt ! Plus qu'à choisir votre créneau de diagnostic.");
-    setTimeout(() => renderCalendar(), 1200);
+    // 1. Message de transition
+    await botSay("Parfait 🎉 Votre dossier est prêt !");
+    // 2. Envoi silencieux à GHL (ne bloque pas l'UX)
+    sendToGHL();
+    // 3. Confirmation visuelle + affichage calendrier
+    await botSay("Votre demande est bien enregistrée. Choisissez maintenant votre créneau de diagnostic — notre technicien se déplacera gratuitement à <strong>" + data.ville + "</strong>.", 800);
+    setTimeout(() => renderCalendar(), 1000);
     return;
   }
 
