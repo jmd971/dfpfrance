@@ -11,18 +11,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,30..100;1,9..144,300..500,30..100&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <style>
+  /* Override page-header pour QR code : compacte + sans breadcrumb */
+  .avis-hero { padding: 1.75rem 0 0.5rem; text-align: center; border-bottom: none; }
+  .avis-hero .eyebrow { justify-content: center; }
+  .avis-hero h1 {
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    max-width: 22ch;
+    margin: 0.75rem auto 0;
+    line-height: 1.05;
+  }
+  .avis-lead {
+    color: var(--slate);
+    max-width: 50ch;
+    margin: 1.5rem auto 0;
+    font-size: 1rem;
+    line-height: 1.55;
+    text-align: center;
+  }
   .rating-card {
     background: var(--paper-alt);
     border: 1px solid var(--line);
-    padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+    padding: clamp(1.25rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem);
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 1.5rem;
   }
   .star-row {
     display: flex;
     justify-content: center;
-    gap: 0.25rem;
-    margin: 2.5rem 0 1rem;
+    gap: 0.15rem;
+    margin: 1rem 0 0.5rem;
     flex-wrap: wrap;
   }
   .star-row a {
@@ -97,25 +114,17 @@
 </header>
 
 <main>
-<section class="page-header">
+<section class="avis-hero">
   <div class="container" style="max-width: 760px;">
-    <nav class="breadcrumb"><a href="index.html">Accueil</a><span>/</span><span>Votre avis</span></nav>
     <p class="eyebrow">Votre avis · merci</p>
-    <h1 class="mt-5">Comment s'est passée <em>votre intervention&nbsp;?</em></h1>
-    <p class="lead">
-      Votre retour compte vraiment. Donnez-nous une note en un clic — cela nous aide à
-      progresser et à orienter les choix de nos prochains chantiers.
-    </p>
+    <h1>Notez votre <em>intervention.</em></h1>
   </div>
 </section>
 
-<section>
+<section style="padding-top: 0;">
   <div class="container" style="max-width: 760px;">
 
     <div class="rating-card">
-      <p class="eyebrow" style="text-align:center;">Votre note</p>
-      <h2 style="font-size: 1.6rem; margin: 1rem 0 0; font-weight: 300;">Sur 5 étoiles, vous diriez…</h2>
-
       <div class="star-row" role="radiogroup" aria-label="Notez votre expérience de 1 à 5 étoiles">
         <a href="avis-negatif.html" aria-label="1 étoile, peu satisfait"><span class="star">★</span><span class="star-label">1</span></a>
         <a href="avis-negatif.html" aria-label="2 étoiles, peu satisfait"><span class="star">★</span><span class="star-label">2</span></a>
@@ -124,10 +133,15 @@
         <a href="https://search.google.com/local/writereview?placeid=ChIJEaVQTdIP5kcRjWT-aZWGuvs" rel="noopener" aria-label="5 étoiles, très satisfait"><span class="star">★</span><span class="star-label">5</span></a>
       </div>
 
-      <p class="rating-hint">Cliquez sur une étoile pour noter</p>
+      <p class="rating-hint">Touchez une étoile</p>
     </div>
 
-    <div style="margin-top: 3rem; padding: 1.5rem 0; border-top: 1px solid var(--line); text-align: center;">
+    <p class="avis-lead">
+      Votre retour compte vraiment — il nous aide à progresser et à mieux servir nos
+      prochains clients.
+    </p>
+
+    <div style="margin-top: 2.5rem; padding: 1.25rem 0; border-top: 1px solid var(--line); text-align: center;">
       <p style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-soft); margin-bottom: 0.5rem;">Note moyenne actuelle</p>
       <p style="color: var(--slate); font-size: 1rem;">
         <strong style="color: var(--ink);">5,0 / 5</strong> sur Google · 7 avis clients, tous 5 étoiles.
