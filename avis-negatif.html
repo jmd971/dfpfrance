@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Votre retour | DFP France</title>
+<meta name="description" content="Votre expérience n'a pas été à la hauteur. Aidez-nous à comprendre — nous vous rappelons sous 24 h ouvrées.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,30..100;1,9..144,300..500,30..100&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .feedback-form { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+  .feedback-field { display: flex; flex-direction: column; gap: 0.5rem; }
+  .feedback-field label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--slate-soft);
+  }
+  .feedback-field label .req { color: var(--amber); }
+  .feedback-field input,
+  .feedback-field textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink);
+    transition: border-color 0.2s var(--ease-out), background 0.2s var(--ease-out);
+  }
+  .feedback-field input:focus,
+  .feedback-field textarea:focus {
+    outline: none;
+    border-color: var(--amber);
+    background: #fff;
+  }
+  .feedback-field textarea { resize: vertical; min-height: 140px; }
+  .feedback-success {
+    display: none;
+    background: var(--paper-alt);
+    border-left: 2px solid var(--success);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+  }
+  .feedback-success.is-active { display: block; }
+  .feedback-success h3 { font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 400; }
+  .feedback-success p { color: var(--slate); }
+  .privacy-note {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--slate-soft);
+  }
+</style>
+</head>
+<body>
+
+<div class="announce"><strong>Été 2026 —</strong>&nbsp;Délais de pose qui s'allongent à partir de mai. Réservez votre créneau.</div>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a class="brand-logo" href="index.html"><img src="assets/img/logo-dfp.jpg" alt="DFP France" width="120" height="36" style="mix-blend-mode:multiply;"></a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-dropdown"><button>Services</button><div class="nav-dropdown-menu"><span class="menu-label">Films techniques</span><a href="services/film-solaire.html">Film solaire</a><a href="services/film-securite.html">Film de sécurité</a><a href="services/film-anti-graffiti.html">Film anti-graffiti</a><a href="services/film-intelligent.html">Film intelligent</a></div></li>
+        <li class="nav-dropdown"><button>Secteurs</button><div class="nav-dropdown-menu"><span class="menu-label">Par secteur</span><a href="secteurs/bureaux.html">Bureaux</a><a href="index.html#secteurs">Commerces</a><a href="index.html#secteurs">Établissements publics</a><a href="index.html#secteurs">Habitat</a></div></li>
+        <li><a href="realisations.html">Réalisations</a></li>
+        <li><a href="zones.html">Zones</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:0186708288" class="nav-phone">01 86 70 82 88</a>
+        <a href="https://webapps.dfpfrance.fr/widget/bookings/rdv-dfpfrance" target="_blank" rel="noopener" class="btn btn-primary">Prendre RDV</a>
+        <button class="nav-toggle"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="page-header">
+  <div class="container" style="max-width: 760px;">
+    <nav class="breadcrumb"><a href="index.html">Accueil</a><span>/</span><a href="avis.html">Votre avis</a><span>/</span><span>Votre retour</span></nav>
+    <p class="eyebrow">Votre retour · confidentiel</p>
+    <h1 class="mt-5">Nous sommes <em>désolés.</em></h1>
+    <p class="lead">
+      Votre expérience n'a pas été à la hauteur. Aidez-nous à comprendre ce qui n'a pas
+      fonctionné — nous vous rappelons sous <strong>24 h ouvrées</strong> pour faire le
+      point et corriger ce qui doit l'être. Votre message reste strictement confidentiel.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="max-width: 760px;">
+
+    <form class="feedback-form" id="feedbackForm" novalidate>
+      <div class="feedback-field">
+        <label for="prenom">Prénom <span class="req">*</span></label>
+        <input type="text" id="prenom" name="prenom" autocomplete="given-name" required>
+      </div>
+
+      <div class="feedback-field">
+        <label for="telephone">Téléphone <span class="req">*</span></label>
+        <input type="tel" id="telephone" name="telephone" autocomplete="tel" placeholder="06 12 34 56 78" required>
+      </div>
+
+      <div class="feedback-field">
+        <label for="email">E-mail <span style="color:var(--slate-soft);font-size:0.65rem;">— optionnel</span></label>
+        <input type="email" id="email" name="email" autocomplete="email">
+      </div>
+
+      <div class="feedback-field">
+        <label for="message">Que s'est-il passé&nbsp;? <span class="req">*</span></label>
+        <textarea id="message" name="message" rows="6" placeholder="Décrivez en quelques phrases ce qui n'a pas été à la hauteur — pose, finition, communication, délais…" required></textarea>
+        <p class="privacy-note">Vos informations ne sont utilisées que pour vous recontacter. Aucun partage avec des tiers.</p>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-top:0.5rem;">
+        <button type="submit" class="btn btn-amber" style="font-size:1.05rem;padding:1rem 2rem;">
+          Envoyer mon retour
+        </button>
+        <span style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.05em;color:var(--slate-soft);">
+          Réponse sous 24 h ouvrées
+        </span>
+      </div>
+    </form>
+
+    <div class="feedback-success" id="feedbackSuccess" role="status">
+      <h3>Merci, votre message est parti.</h3>
+      <p>Nous vous recontactons sous 24 h ouvrées au numéro indiqué. Si c'est urgent, vous pouvez aussi nous joindre directement ci-dessous.</p>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding-top: 4rem;">
+  <div class="container" style="max-width: 760px;">
+    <p class="eyebrow">Ou plus rapide&nbsp;?</p>
+    <h2 style="font-size: 1.75rem; margin: 1rem 0 2rem; font-weight: 300;">Joignez-nous <em>directement.</em></h2>
+
+    <div style="display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line);">
+      <a href="tel:0186708288" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 0; border-bottom: 1px solid var(--line); text-decoration: none;">
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-soft);">Téléphone</span>
+          <span style="display: block; font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); font-weight: 400; margin-top: 0.25rem;">01 86 70 82 88</span>
+        </div>
+        <span class="text-amber" style="font-size: 1.5rem;">→</span>
+      </a>
+      <a href="https://wa.me/33769628912" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 0; border-bottom: 1px solid var(--line); text-decoration: none;">
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-soft);">WhatsApp</span>
+          <span style="display: block; font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); font-weight: 400; margin-top: 0.25rem;">+33 7 69 62 89 12</span>
+        </div>
+        <span class="text-amber" style="font-size: 1.5rem;">→</span>
+      </a>
+      <a href="mailto:contact@dfpfrance.fr" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 0; border-bottom: 1px solid var(--line); text-decoration: none;">
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-soft);">E-mail</span>
+          <span style="display: block; font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); font-weight: 400; margin-top: 0.25rem;">contact@dfpfrance.fr</span>
+        </div>
+        <span class="text-amber" style="font-size: 1.5rem;">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><img src="assets/img/logo-dfp.jpg" alt="DFP France" class="footer-logo-img" width="110" ><p class="footer-desc">Spécialiste de la pose de films techniques pour vitrages en Île-de-France.</p><div class="footer-contact"><a href="tel:0186708288" class="phone">01 86 70 82 88</a><a href="mailto:contact@dfpfrance.fr">contact@dfpfrance.fr</a><span>11 Rue Albert Einstein, 77420 Champs-sur-Marne</span></div></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services/film-solaire.html">Film solaire</a></li><li><a href="services/film-securite.html">Film de sécurité</a></li><li><a href="services/film-anti-graffiti.html">Film anti-graffiti</a></li><li><a href="services/film-intelligent.html">Film intelligent</a></li></ul></div>
+      <div class="footer-col"><h4>Secteurs</h4><ul><li><a href="secteurs/bureaux.html">Bureaux</a></li><li><a href="#">Commerces</a></li><li><a href="#">Établissements publics</a></li><li><a href="#">Habitat</a></li></ul></div>
+      <div class="footer-col"><h4>Entreprise</h4><ul><li><a href="a-propos.html">À propos</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DFP France · Tous droits réservés</span><ul><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="politique-confidentialite.html">Confidentialité</a></li></ul></div>
+  </div>
+</footer>
+
+<nav class="mobile-cta"><a href="tel:0186708288">Appeler</a><a href="https://wa.me/33769628912">WhatsApp</a><a href="https://webapps.dfpfrance.fr/widget/bookings/rdv-dfpfrance" target="_blank" rel="noopener">Prendre RDV</a></nav>
+
+<script>
+(function () {
+  var form = document.getElementById('feedbackForm');
+  var success = document.getElementById('feedbackSuccess');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    var prenom = form.prenom.value.trim();
+    var tel = form.telephone.value.trim();
+    var email = form.email.value.trim();
+    var message = form.message.value.trim();
+
+    var subject = 'Retour client — ' + prenom;
+    var bodyLines = [
+      'Prénom : ' + prenom,
+      'Téléphone : ' + tel,
+      'E-mail : ' + (email || '—'),
+      '',
+      'Message :',
+      message
+    ];
+    var mailto = 'mailto:contact@dfpfrance.fr'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(bodyLines.join('\n'));
+
+    window.location.href = mailto;
+
+    setTimeout(function () {
+      form.style.display = 'none';
+      if (success) success.classList.add('is-active');
+    }, 400);
+  });
+})();
+</script>
+<script src="js/main.js" defer></script>
+</body>
+</html>

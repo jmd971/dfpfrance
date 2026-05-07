@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donnez votre avis | DFP France</title>
+<meta name="description" content="Votre intervention est terminée. Notez votre expérience DFP France en un clic.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,30..100;1,9..144,300..500,30..100&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .rating-card {
+    background: var(--paper-alt);
+    border: 1px solid var(--line);
+    padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+    text-align: center;
+    margin-top: 3rem;
+  }
+  .star-row {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 0.25rem;
+    margin: 2.5rem 0 1.5rem;
+  }
+  .star-row button {
+    font-size: clamp(2.75rem, 8vw, 4rem);
+    line-height: 1;
+    padding: 0.4rem 0.5rem;
+    color: var(--mist);
+    transition: color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+    cursor: pointer;
+  }
+  .star-row button:hover,
+  .star-row button:focus-visible,
+  .star-row button:hover ~ button,
+  .star-row button:focus-visible ~ button {
+    color: var(--amber);
+    transform: translateY(-2px);
+    outline: none;
+  }
+  .star-row button:active { transform: translateY(0) scale(0.95); }
+  .rating-hint {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--slate-soft);
+  }
+  .rating-loading {
+    display: none;
+    margin-top: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--slate);
+  }
+  .rating-loading.is-active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="announce"><strong>Été 2026 —</strong>&nbsp;Délais de pose qui s'allongent à partir de mai. Réservez votre créneau.</div>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a class="brand-logo" href="index.html"><img src="assets/img/logo-dfp.jpg" alt="DFP France" width="120" height="36" style="mix-blend-mode:multiply;"></a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-dropdown"><button>Services</button><div class="nav-dropdown-menu"><span class="menu-label">Films techniques</span><a href="services/film-solaire.html">Film solaire</a><a href="services/film-securite.html">Film de sécurité</a><a href="services/film-anti-graffiti.html">Film anti-graffiti</a><a href="services/film-intelligent.html">Film intelligent</a></div></li>
+        <li class="nav-dropdown"><button>Secteurs</button><div class="nav-dropdown-menu"><span class="menu-label">Par secteur</span><a href="secteurs/bureaux.html">Bureaux</a><a href="index.html#secteurs">Commerces</a><a href="index.html#secteurs">Établissements publics</a><a href="index.html#secteurs">Habitat</a></div></li>
+        <li><a href="realisations.html">Réalisations</a></li>
+        <li><a href="zones.html">Zones</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:0186708288" class="nav-phone">01 86 70 82 88</a>
+        <a href="https://webapps.dfpfrance.fr/widget/bookings/rdv-dfpfrance" target="_blank" rel="noopener" class="btn btn-primary">Prendre RDV</a>
+        <button class="nav-toggle"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="page-header">
+  <div class="container" style="max-width: 760px;">
+    <nav class="breadcrumb"><a href="index.html">Accueil</a><span>/</span><span>Votre avis</span></nav>
+    <p class="eyebrow">Votre avis · merci</p>
+    <h1 class="mt-5">Comment s'est passée <em>votre intervention&nbsp;?</em></h1>
+    <p class="lead">
+      Votre retour compte vraiment. Donnez-nous une note en un clic — cela nous aide à
+      progresser et à orienter les choix de nos prochains chantiers.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="max-width: 760px;">
+
+    <div class="rating-card">
+      <p class="eyebrow" style="text-align:center;">Votre note</p>
+      <h2 style="font-size: 1.6rem; margin: 1rem 0 0; font-weight: 300;">Sur 5 étoiles, vous diriez…</h2>
+
+      <div class="star-row" id="starRow" role="radiogroup" aria-label="Notez votre expérience de 1 à 5 étoiles">
+        <button type="button" data-rating="5" aria-label="5 étoiles">★</button>
+        <button type="button" data-rating="4" aria-label="4 étoiles">★</button>
+        <button type="button" data-rating="3" aria-label="3 étoiles">★</button>
+        <button type="button" data-rating="2" aria-label="2 étoiles">★</button>
+        <button type="button" data-rating="1" aria-label="1 étoile">★</button>
+      </div>
+
+      <p class="rating-hint">Cliquez sur une étoile</p>
+      <p class="rating-loading" id="ratingLoading">Merci, redirection en cours…</p>
+    </div>
+
+    <div style="margin-top: 3rem; padding: 1.5rem 0; border-top: 1px solid var(--line); text-align: center;">
+      <p style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-soft); margin-bottom: 0.5rem;">Note moyenne actuelle</p>
+      <p style="color: var(--slate); font-size: 1rem;">
+        <strong style="color: var(--ink);">5,0 / 5</strong> sur Google · 7 avis clients, tous 5 étoiles.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding-top: 4rem;">
+  <div class="container" style="max-width: 760px;">
+    <p class="eyebrow">Préférez nous joindre directement&nbsp;?</p>
+    <h2 style="font-size: 1.75rem; margin: 1rem 0 2rem; font-weight: 300;">Un mot, un appel, et c'est <em>réglé.</em></h2>
+
+    <div style="display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line);">
+      <a href="tel:0186708288" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 0; border-bottom: 1px solid var(--line); text-decoration: none;">
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-soft);">Téléphone</span>
+          <span style="display: block; font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); font-weight: 400; margin-top: 0.25rem;">01 86 70 82 88</span>
+        </div>
+        <span class="text-amber" style="font-size: 1.5rem;">→</span>
+      </a>
+      <a href="https://wa.me/33769628912" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 0; border-bottom: 1px solid var(--line); text-decoration: none;">
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-soft);">WhatsApp</span>
+          <span style="display: block; font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); font-weight: 400; margin-top: 0.25rem;">+33 7 69 62 89 12</span>
+        </div>
+        <span class="text-amber" style="font-size: 1.5rem;">→</span>
+      </a>
+      <a href="mailto:contact@dfpfrance.fr" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 0; border-bottom: 1px solid var(--line); text-decoration: none;">
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-soft);">E-mail</span>
+          <span style="display: block; font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); font-weight: 400; margin-top: 0.25rem;">contact@dfpfrance.fr</span>
+        </div>
+        <span class="text-amber" style="font-size: 1.5rem;">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><img src="assets/img/logo-dfp.jpg" alt="DFP France" class="footer-logo-img" width="110" ><p class="footer-desc">Spécialiste de la pose de films techniques pour vitrages en Île-de-France.</p><div class="footer-contact"><a href="tel:0186708288" class="phone">01 86 70 82 88</a><a href="mailto:contact@dfpfrance.fr">contact@dfpfrance.fr</a><span>11 Rue Albert Einstein, 77420 Champs-sur-Marne</span></div></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services/film-solaire.html">Film solaire</a></li><li><a href="services/film-securite.html">Film de sécurité</a></li><li><a href="services/film-anti-graffiti.html">Film anti-graffiti</a></li><li><a href="services/film-intelligent.html">Film intelligent</a></li></ul></div>
+      <div class="footer-col"><h4>Secteurs</h4><ul><li><a href="secteurs/bureaux.html">Bureaux</a></li><li><a href="#">Commerces</a></li><li><a href="#">Établissements publics</a></li><li><a href="#">Habitat</a></li></ul></div>
+      <div class="footer-col"><h4>Entreprise</h4><ul><li><a href="a-propos.html">À propos</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DFP France · Tous droits réservés</span><ul><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="politique-confidentialite.html">Confidentialité</a></li></ul></div>
+  </div>
+</footer>
+
+<nav class="mobile-cta"><a href="tel:0186708288">Appeler</a><a href="https://wa.me/33769628912">WhatsApp</a><a href="https://webapps.dfpfrance.fr/widget/bookings/rdv-dfpfrance" target="_blank" rel="noopener">Prendre RDV</a></nav>
+
+<script>
+(function () {
+  var GOOGLE_REVIEW_URL = 'https://g.page/r/CY1k_mmVhrr7EAE/review';
+  var NEGATIVE_FEEDBACK_URL = 'avis-negatif.html';
+  var loading = document.getElementById('ratingLoading');
+  var stars = document.querySelectorAll('#starRow button');
+
+  stars.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var rating = parseInt(btn.getAttribute('data-rating'), 10);
+      stars.forEach(function (b) { b.disabled = true; });
+      if (loading) loading.classList.add('is-active');
+      var dest = rating >= 4 ? GOOGLE_REVIEW_URL : NEGATIVE_FEEDBACK_URL;
+      setTimeout(function () { window.location.href = dest; }, 250);
+    });
+  });
+})();
+</script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
