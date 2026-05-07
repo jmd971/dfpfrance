@@ -25,23 +25,25 @@
     gap: 0.25rem;
     margin: 2.5rem 0 1.5rem;
   }
-  .star-row button {
+  .star-row a {
     font-size: clamp(2.75rem, 8vw, 4rem);
     line-height: 1;
     padding: 0.4rem 0.5rem;
     color: var(--mist);
+    text-decoration: none;
     transition: color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
-  .star-row button:hover,
-  .star-row button:focus-visible,
-  .star-row button:hover ~ button,
-  .star-row button:focus-visible ~ button {
+  .star-row a:hover,
+  .star-row a:focus-visible,
+  .star-row a:hover ~ a,
+  .star-row a:focus-visible ~ a {
     color: var(--amber);
     transform: translateY(-2px);
     outline: none;
   }
-  .star-row button:active { transform: translateY(0) scale(0.95); }
+  .star-row a:active { transform: translateY(0) scale(0.95); }
   .rating-hint {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -49,14 +51,6 @@
     text-transform: uppercase;
     color: var(--slate-soft);
   }
-  .rating-loading {
-    display: none;
-    margin-top: 2rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--slate);
-  }
-  .rating-loading.is-active { display: block; }
 </style>
 </head>
 <body>
@@ -106,15 +100,14 @@
       <h2 style="font-size: 1.6rem; margin: 1rem 0 0; font-weight: 300;">Sur 5 étoiles, vous diriez…</h2>
 
       <div class="star-row" id="starRow" role="radiogroup" aria-label="Notez votre expérience de 1 à 5 étoiles">
-        <button type="button" data-rating="5" aria-label="5 étoiles">★</button>
-        <button type="button" data-rating="4" aria-label="4 étoiles">★</button>
-        <button type="button" data-rating="3" aria-label="3 étoiles">★</button>
-        <button type="button" data-rating="2" aria-label="2 étoiles">★</button>
-        <button type="button" data-rating="1" aria-label="1 étoile">★</button>
+        <a href="https://g.page/r/CY1k_mmVhrr7EAE/review" rel="noopener" aria-label="5 étoiles">★</a>
+        <a href="https://g.page/r/CY1k_mmVhrr7EAE/review" rel="noopener" aria-label="4 étoiles">★</a>
+        <a href="avis-negatif.html" aria-label="3 étoiles">★</a>
+        <a href="avis-negatif.html" aria-label="2 étoiles">★</a>
+        <a href="avis-negatif.html" aria-label="1 étoile">★</a>
       </div>
 
       <p class="rating-hint">Cliquez sur une étoile</p>
-      <p class="rating-loading" id="ratingLoading">Merci, redirection en cours…</p>
     </div>
 
     <div style="margin-top: 3rem; padding: 1.5rem 0; border-top: 1px solid var(--line); text-align: center;">
@@ -173,24 +166,6 @@
 
 <nav class="mobile-cta"><a href="tel:0186708288">Appeler</a><a href="https://wa.me/33769628912">WhatsApp</a><a href="https://webapps.dfpfrance.fr/widget/bookings/rdv-dfpfrance" target="_blank" rel="noopener">Prendre RDV</a></nav>
 
-<script>
-(function () {
-  var GOOGLE_REVIEW_URL = 'https://g.page/r/CY1k_mmVhrr7EAE/review';
-  var NEGATIVE_FEEDBACK_URL = 'avis-negatif.html';
-  var loading = document.getElementById('ratingLoading');
-  var stars = document.querySelectorAll('#starRow button');
-
-  stars.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var rating = parseInt(btn.getAttribute('data-rating'), 10);
-      stars.forEach(function (b) { b.disabled = true; });
-      if (loading) loading.classList.add('is-active');
-      var dest = rating >= 4 ? GOOGLE_REVIEW_URL : NEGATIVE_FEEDBACK_URL;
-      setTimeout(function () { window.location.href = dest; }, 250);
-    });
-  });
-})();
-</script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
