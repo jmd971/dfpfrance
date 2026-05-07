@@ -20,30 +20,47 @@
   }
   .star-row {
     display: flex;
-    flex-direction: row-reverse;
     justify-content: center;
     gap: 0.25rem;
-    margin: 2.5rem 0 1.5rem;
+    margin: 2.5rem 0 1rem;
+    flex-wrap: wrap;
   }
   .star-row a {
-    font-size: clamp(2.75rem, 8vw, 4rem);
-    line-height: 1;
-    padding: 0.4rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    min-height: 96px;
+    padding: 0.5rem 0.75rem;
     color: var(--mist);
     text-decoration: none;
-    transition: color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+    transition: color 0.18s var(--ease-out), background 0.18s var(--ease-out);
     cursor: pointer;
+    border-radius: 4px;
     -webkit-tap-highlight-color: transparent;
   }
+  .star-row a .star {
+    font-size: clamp(2.5rem, 7vw, 3.5rem);
+    line-height: 1;
+  }
+  .star-row a .star-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--slate-soft);
+    margin-top: 0.5rem;
+  }
   .star-row a:hover,
-  .star-row a:focus-visible,
-  .star-row a:hover ~ a,
-  .star-row a:focus-visible ~ a {
+  .star-row a:focus-visible {
     color: var(--amber);
-    transform: translateY(-2px);
+    background: rgba(194, 106, 58, 0.08);
     outline: none;
   }
-  .star-row a:active { transform: translateY(0) scale(0.95); }
+  .star-row a:hover .star-label,
+  .star-row a:focus-visible .star-label { color: var(--amber); }
+  .star-row a:active { transform: scale(0.96); }
   .rating-hint {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -99,15 +116,15 @@
       <p class="eyebrow" style="text-align:center;">Votre note</p>
       <h2 style="font-size: 1.6rem; margin: 1rem 0 0; font-weight: 300;">Sur 5 étoiles, vous diriez…</h2>
 
-      <div class="star-row" id="starRow" role="radiogroup" aria-label="Notez votre expérience de 1 à 5 étoiles">
-        <a href="https://g.page/r/CY1k_mmVhrr7EAE/review" rel="noopener" aria-label="5 étoiles">★</a>
-        <a href="https://g.page/r/CY1k_mmVhrr7EAE/review" rel="noopener" aria-label="4 étoiles">★</a>
-        <a href="avis-negatif.html" aria-label="3 étoiles">★</a>
-        <a href="avis-negatif.html" aria-label="2 étoiles">★</a>
-        <a href="avis-negatif.html" aria-label="1 étoile">★</a>
+      <div class="star-row" role="radiogroup" aria-label="Notez votre expérience de 1 à 5 étoiles">
+        <a href="avis-negatif.html" aria-label="1 étoile, peu satisfait"><span class="star">★</span><span class="star-label">1</span></a>
+        <a href="avis-negatif.html" aria-label="2 étoiles, peu satisfait"><span class="star">★</span><span class="star-label">2</span></a>
+        <a href="avis-negatif.html" aria-label="3 étoiles, mitigé"><span class="star">★</span><span class="star-label">3</span></a>
+        <a href="https://g.page/r/CY1k_mmVhrr7EAE/review" rel="noopener" aria-label="4 étoiles, satisfait"><span class="star">★</span><span class="star-label">4</span></a>
+        <a href="https://g.page/r/CY1k_mmVhrr7EAE/review" rel="noopener" aria-label="5 étoiles, très satisfait"><span class="star">★</span><span class="star-label">5</span></a>
       </div>
 
-      <p class="rating-hint">Cliquez sur une étoile</p>
+      <p class="rating-hint">Cliquez sur une étoile pour noter</p>
     </div>
 
     <div style="margin-top: 3rem; padding: 1.5rem 0; border-top: 1px solid var(--line); text-align: center;">
