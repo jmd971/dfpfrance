@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/avis", "destination": "/avis.html" },
     { "source": "/avis-negatif", "destination": "/avis-negatif.html" }
