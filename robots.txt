@@ -1,4 +1,14 @@
+# robots.txt — DFP France
+# https://dfpfrance.fr
+
 User-agent: *
 Allow: /
+
+# Pages techniques internes (parcours QR code de notation client + meta)
+Disallow: /avis
+Disallow: /avis.html
+Disallow: /avis-negatif
+Disallow: /avis-negatif.html
+Disallow: /CLAUDE.md
 
 Sitemap: https://dfpfrance.fr/sitemap.xml
