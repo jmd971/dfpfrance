@@ -1,7 +1,30 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/avis", "destination": "/avis.html" },
-    { "source": "/avis-negatif", "destination": "/avis-negatif.html" }
+    {
+      "source": "/avis",
+      "destination": "/avis.html"
+    },
+    {
+      "source": "/avis-negatif",
+      "destination": "/avis-negatif.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/film-securite",
+      "destination": "/services/film-securite",
+      "permanent": true
+    },
+    {
+      "source": "/film-antigraffiti",
+      "destination": "/services/film-anti-graffiti",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/a-propos",
+      "permanent": true
+    }
   ]
 }
