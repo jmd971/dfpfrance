@@ -12,11 +12,6 @@
   ],
   "redirects": [
     {
-      "source": "https://www.dfpfrance.fr/:path*",
-      "destination": "https://dfpfrance.fr/:path*",
-      "permanent": true
-    },
-    {
       "source": "/film-securite",
       "destination": "/services/film-securite",
       "permanent": true
