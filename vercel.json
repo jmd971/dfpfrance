@@ -30,6 +30,16 @@
       "source": "/about",
       "destination": "/a-propos",
       "permanent": true
+    },
+    {
+      "source": "/film-solaire",
+      "destination": "/services/film-solaire",
+      "permanent": true
+    },
+    {
+      "source": "/film-intelligent",
+      "destination": "/services/film-intelligent",
+      "permanent": true
     }
   ]
 }
