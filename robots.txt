@@ -12,3 +12,5 @@ Disallow: /avis-negatif.html
 Disallow: /CLAUDE.md
 
 Sitemap: https://dfpfrance.fr/sitemap.xml
+
+# updated 2026-06-19
