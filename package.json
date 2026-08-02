@@ -1,0 +1,9 @@
+{
+  "name": "dfpfrance-whatsapp-bot",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.115.0",
+    "@supabase/supabase-js": "^2.111.0"
+  }
+}
