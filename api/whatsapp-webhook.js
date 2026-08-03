@@ -19,6 +19,11 @@ module.exports = async function handler(req, res) {
   // message   -> {{message.body}}
   const { secret, clientId, contactId, message } = req.body || {};
 
+  // DEBUG TEMPORAIRE — à retirer une fois l'auth du webhook validée
+  console.log('DEBUG whatsapp-webhook body:', JSON.stringify(req.body));
+  console.log('DEBUG secret reçu:', JSON.stringify(secret), 'longueur:', secret ? secret.length : 0);
+  console.log('DEBUG secret attendu longueur:', process.env.WEBHOOK_SECRET ? process.env.WEBHOOK_SECRET.length : 0);
+
   if (!secret || secret !== process.env.WEBHOOK_SECRET) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
