@@ -17,12 +17,9 @@ module.exports = async function handler(req, res) {
   // clientId  -> identifiant fixe du client, ex: 'dfpfrance' (à saisir en dur dans le Workflow, un par client)
   // contactId -> {{contact.id}}
   // message   -> {{message.body}}
-  const { secret, clientId, contactId, message } = req.body || {};
-
-  // DEBUG TEMPORAIRE — à retirer une fois l'auth du webhook validée
-  console.log('DEBUG whatsapp-webhook body:', JSON.stringify(req.body));
-  console.log('DEBUG secret reçu:', JSON.stringify(secret), 'longueur:', secret ? secret.length : 0);
-  console.log('DEBUG secret attendu longueur:', process.env.WEBHOOK_SECRET ? process.env.WEBHOOK_SECRET.length : 0);
+  // GHL imbrique les Custom Data d'un webhook de workflow sous req.body.customData
+  // (le reste — contact, location, workflow... — reste à la racine, cf. "données standard").
+  const { secret, clientId, contactId, message } = (req.body && req.body.customData) || {};
 
   if (!secret || secret !== process.env.WEBHOOK_SECRET) {
     return res.status(401).json({ error: 'Unauthorized' });
