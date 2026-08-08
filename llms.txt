@@ -11,11 +11,16 @@ Siège : Champs-sur-Marne (77420). Zone d'intervention : toute l'Île-de-France 
 - [Film solaire anti-chaleur](https://dfpfrance.fr/services/film-solaire) : confort thermique, fin de la surchauffe, économies de climatisation, protection UV. Service le plus demandé.
 - [Film de sécurité](https://dfpfrance.fr/services/film-securite) : protection anti-effraction et anti-vandalisme pour rez-de-chaussée, commerces, locaux sensibles.
 - [Film anti-graffiti](https://dfpfrance.fr/services/film-anti-graffiti) : couche sacrificielle protégeant les vitrines et devantures des tags.
+- [Film décoratif](https://dfpfrance.fr/services/film-decoratif) : films givrés, imprimés, colorés ou miroir pour vitrines, cloisons vitrées et fenêtres. Habillage sur mesure.
 - [Film intelligent](https://dfpfrance.fr/services/film-intelligent) : film à opacité variable (PDLC), passage transparent/opaque à la demande, idéal pour les salles de réunion.
 
 ## Secteurs
 
 - [Bureaux — film solaire pour tertiaire](https://dfpfrance.fr/secteurs/bureaux) : cible principale, façades vitrées en surchauffe, économies de clim, lisibilité des écrans.
+- [Commerces et vitrines de luxe](https://dfpfrance.fr/secteurs/commerces) : films décoratifs, anti-graffiti et de sécurité. Références : Louis Vuitton, Optical Center.
+- [Établissements publics et scolaires](https://dfpfrance.fr/secteurs/etablissements-publics) : films de sécurité conformes PPMS pour écoles, collectivités, cliniques. Référence : École Duperré.
+- [Grandes surfaces et logistique](https://dfpfrance.fr/secteurs/grandes-surfaces) : films solaires haute performance sur verrières de toit, skylights et façades vitrées.
+- [Habitat et copropriétés](https://dfpfrance.fr/secteurs/habitat) : maisons, appartements, vérandas et verrières haussmanniennes. Anti-surchauffe.
 
 ## Réalisations (études de cas)
 
@@ -25,6 +30,7 @@ Siège : Champs-sur-Marne (77420). Zone d'intervention : toute l'Île-de-France 
 - [Solarscène — film solaire sur verrière inclinée de studio](https://dfpfrance.fr/realisations/solarscene) : pose extérieure sur échafaudage, partenariat Transmiexpert.
 - [Palace parisien — film de sécurité sur grandes baies](https://dfpfrance.fr/realisations/palace-paris) : Paris (75), film optiquement neutre sur baies dorées et salle boiseries.
 - [École Duperré Paris 3e — film décoratif imprimé](https://dfpfrance.fr/realisations/ecole-duperre-paris3) : vitrines haussmanniennes, établissement public.
+- [Clinique Saint-Jean l'Ermitage (Melun, 77) — film solaire](https://dfpfrance.fr/realisations/clinique-saint-jean-melun) : hall vitré toute hauteur, chantier sur site en activité, lumière préservée.
 - [Bureaux à Versailles — film solaire](https://dfpfrance.fr/realisations/bureaux-versailles) : cabinet d'avocats, baies sud-ouest.
 - [Portfolio photos](https://dfpfrance.fr/portfolio) : galerie complète des chantiers.
 
@@ -35,11 +41,16 @@ Siège : Champs-sur-Marne (77420). Zone d'intervention : toute l'Île-de-France 
 - [Noisy-le-Grand (93)](https://dfpfrance.fr/zones/noisy-le-grand) : quartier d'affaires Mont d'Est, B2B tertiaire, charnière 93/94/77.
 - [Marne-la-Vallée (77)](https://dfpfrance.fr/zones/marne-la-vallee) : Val Maubuée, Val de Bussy, Val d'Europe, Porte de Paris.
 - [Versailles (78)](https://dfpfrance.fr/zones/versailles) : bâti patrimonial et tertiaire récent (Versailles Chantiers, Satory).
+- [Paris (75)](https://dfpfrance.fr/zones/paris) : tous arrondissements, bureaux, commerces et habitat.
+- [Bry-sur-Marne (94)](https://dfpfrance.fr/zones/bry-sur-marne) : bureaux, copropriétés et maisons au bord de la Marne, à 10 min du siège.
+- [Champigny-sur-Marne (94)](https://dfpfrance.fr/zones/champigny-sur-marne) : maisons, copropriétés, commerces et établissements.
+- [Saint-Maur-des-Fossés (94)](https://dfpfrance.fr/zones/saint-maur-des-fosses) : maisons, vérandas et copropriétés de la boucle de la Marne.
 
 ## Blog
 
 - [Blog](https://dfpfrance.fr/blog) : conseils, réglementation, retours d'expérience.
 - [Décret tertiaire et films solaires](https://dfpfrance.fr/blog/decret-tertiaire-films-solaires) : article pilier B2B sur la conformité énergétique des bâtiments tertiaires.
+- [Film anti-chaleur pour fenêtres : guide et prix](https://dfpfrance.fr/blog/film-anti-chaleur-fenetre-guide-prix) : gammes, prix au m² posé, performance thermique et UV.
 
 ## Contact & rendez-vous
 
