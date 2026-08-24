@@ -42,7 +42,7 @@ Tout commit sur `main` part **immédiatement en production** sur dfpfrance.fr. I
 
 ## Coordonnées (publiques, déjà sur le site)
 - Tél : 07 69 62 89 12 · WhatsApp : +33 7 69 62 89 12 · E-mail : info@dfpfrance.fr
-- Adresse / siège : 11 Rue Albert Einstein, 77420 Champs-sur-Marne
+- Adresse / siège : 5 Rue Albert Einstein, 77420 Champs-sur-Marne
 - Prise de RDV : https://webapps.dfpfrance.fr/widget/bookings/rdv-dfpfrance
 
 ## Priorités acquisition
