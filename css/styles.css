@@ -197,10 +197,19 @@ section.tight { padding-block: clamp(3rem, 5vw, 4rem); }
   top: 0;
   z-index: 100;
   background: rgba(246, 243, 236, 0.85);
-  backdrop-filter: saturate(140%) blur(12px);
-  -webkit-backdrop-filter: saturate(140%) blur(12px);
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s var(--ease-out);
+}
+/* Le flou est porté par un pseudo-élément : un backdrop-filter posé sur .site-header
+   en ferait le bloc conteneur du menu mobile (position: fixed), qui se retrouverait
+   écrasé dans la hauteur du header. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
 }
 .site-header.scrolled { border-bottom-color: var(--line); }
 
