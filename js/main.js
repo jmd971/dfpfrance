@@ -1,4 +1,4 @@
-/* DFP France — interactions client-side (vanilla JS, zero dependency) */
+/* DFP France — interactions client-side (vanilla JS, zero dependency) — 2026-09-22 */
 (function() {
   'use strict';
 
