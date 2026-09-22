@@ -8,6 +8,9 @@
   if (toggle && menu) {
     toggle.addEventListener('click', function() {
       const open = menu.classList.toggle('open');
+      // Le panneau démarre sous le header (bandeau d'annonce compris tant qu'il est visible)
+      const hdr = document.querySelector('.site-header');
+      if (hdr) menu.style.top = Math.round(hdr.getBoundingClientRect().bottom) + 'px';
       toggle.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', open);
       document.body.style.overflow = open ? 'hidden' : '';
