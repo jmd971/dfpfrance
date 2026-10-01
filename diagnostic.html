@@ -472,6 +472,22 @@ body {
 .chat-messages::-webkit-scrollbar { width: 4px; }
 .chat-messages::-webkit-scrollbar-track { background: transparent; }
 .chat-messages::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+
+/* ── Contenu explicatif sous le parcours ── */
+.diag-info { background: var(--paper-alt); border-top: 1px solid var(--line); padding: 4rem 1rem; }
+.diag-info-inner { max-width: 760px; margin: 0 auto; }
+.diag-info .eyebrow { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--teal-deep); margin-bottom: .75rem; }
+.diag-info h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.6rem, 3.5vw, 2.2rem); line-height: 1.2; margin-bottom: 1.25rem; }
+.diag-info h2 em { font-style: italic; color: var(--amber-deep); }
+.diag-info h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; margin: 2.5rem 0 .75rem; }
+.diag-info p, .diag-info li { font-size: 1rem; line-height: 1.7; color: var(--slate); }
+.diag-info p + p { margin-top: 1rem; }
+.diag-info ol, .diag-info ul { padding-left: 1.25rem; margin-top: .75rem; }
+.diag-info li + li { margin-top: .5rem; }
+.diag-info strong { color: var(--ink); font-weight: 600; }
+.diag-info a { color: var(--amber-deep); text-decoration: underline; text-underline-offset: 2px; }
+.diag-info a:hover { color: var(--amber); }
+@media (min-width: 600px) { .diag-info { padding: 5rem 2rem; } }
 </style>
 </head>
 <body>
@@ -512,6 +528,40 @@ body {
   </main>
 
 </div>
+
+<section class="diag-info" aria-labelledby="diag-info-titre">
+  <div class="diag-info-inner">
+    <p class="eyebrow">Comment se passe le diagnostic</p>
+    <h2 id="diag-info-titre">Un appel pour comprendre votre vitrage, <em>avant tout devis.</em></h2>
+    <p>Le diagnostic est gratuit et sans engagement. Il sert à vérifier qu'un film est la bonne réponse à votre problème (chaleur, éblouissement, vis-à-vis, sécurité) et, si c'est le cas, à choisir le bon film avant de chiffrer quoi que ce soit.</p>
+    <p>Les cinq questions ci-dessus nous donnent l'essentiel : le type de film qui vous intéresse, le local, la surface approximative, la ville et vos contraintes. Vous choisissez ensuite un créneau, et c'est à nous d'appeler.</p>
+
+    <h3>Les étapes, de la demande au devis</h3>
+    <ol>
+      <li><strong>Vos réponses en ligne</strong>, en deux minutes environ.</li>
+      <li><strong>L'appel de diagnostic</strong> au créneau que vous avez choisi. Nous revenons sur votre besoin et sur ce qui pose problème aujourd'hui.</li>
+      <li><strong>La visite sur place</strong>, gratuite, si le projet se confirme. Le technicien mesure les vitrages, regarde leur orientation et vous montre des échantillons.</li>
+      <li><strong>Le devis détaillé</strong>, envoyé sous 48 h après la visite, avec la référence du film préconisé.</li>
+    </ol>
+
+    <h3>Ce que nous regardons</h3>
+    <ul>
+      <li>La surface totale à traiter et l'orientation des vitrages, qui décident de la performance nécessaire.</li>
+      <li>Le type de vitrage (simple, double, feuilleté) et son état. Sur un double vitrage, le film doit être compatible pour éviter tout risque de choc thermique.</li>
+      <li>La pose possible : intérieure ou extérieure, accès en hauteur, locaux occupés pendant les travaux.</li>
+      <li>Ce que vous voulez garder : la lumière naturelle, la vue vers l'extérieur, l'aspect de la façade.</li>
+    </ul>
+
+    <h3>Les films concernés</h3>
+    <p>Le diagnostic vaut pour toute notre gamme : le <a href="services/film-solaire">film solaire anti-chaleur</a>, le <a href="services/film-securite">film de sécurité</a>, le <a href="services/film-anti-graffiti">film anti-graffiti</a>, le <a href="services/film-decoratif">film décoratif ou dépoli</a> et le <a href="services/film-intelligent">film opacifiant électrique</a>. Pour vous faire une idée du résultat, nos <a href="realisations">réalisations</a> montrent des chantiers réels en bureaux, commerces, établissements de santé et maisons.</p>
+
+    <h3>Questions fréquentes</h3>
+    <p><strong>Le diagnostic est-il vraiment gratuit ?</strong><br>Oui, l'appel comme la visite. Vous ne payez que si vous acceptez le devis.</p>
+    <p><strong>Combien coûte la pose d'un film ?</strong><br>Pour un film solaire, comptez en général entre 60 et 120 € le m² posé selon la gamme et l'accès. Le prix exact dépend de ce que le diagnostic aura établi.</p>
+    <p><strong>Où intervenez-vous ?</strong><br>Dans toute l'Île-de-France, depuis Champs-sur-Marne. Voir nos <a href="zones">zones d'intervention</a>.</p>
+    <p><strong>Je préfère appeler directement.</strong><br>C'est possible du lundi au vendredi, de 8 h à 18 h, au <a href="tel:0769628912">07 69 62 89 12</a>. Vous pouvez aussi passer par la page <a href="contact">contact</a>.</p>
+  </div>
+</section>
 
 <script>
 /* ══════════════════════════════════════════════
