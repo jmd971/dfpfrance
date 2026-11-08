@@ -11,5 +11,19 @@ Disallow: /avis-negatif
 Disallow: /avis-negatif.html
 Disallow: /CLAUDE.md
 
+# Moteurs de réponse IA : explicitement autorisés (citation dans ChatGPT, Perplexity, Claude, Gemini, Copilot)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Google-Extended
+User-agent: Bingbot
+Allow: /
+Disallow: /avis
+Disallow: /avis-negatif
+Disallow: /CLAUDE.md
+
 Sitemap: https://dfpfrance.fr/sitemap.xml
 
